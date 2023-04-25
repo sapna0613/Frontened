@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+
+
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -34,10 +36,89 @@ const Layout = React.lazy(() => import('./views/forms/layout/Layout'))
 const Range = React.lazy(() => import('./views/forms/range/Range'))
 const Select = React.lazy(() => import('./views/forms/select/Select'))
 const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
-
 const Charts = React.lazy(() => import('./views/charts/Charts'))
 
+
+//************************System Settings*********************//
+const BusinessCountry = React.lazy(() => import('./views/base/System_Setting/BusinessCoun'))
+const AddBusinessCountry = React.lazy(() => import('./views/base/System_Setting/AddBusinessCountry'))
+const AddBusinessState = React.lazy(() => import('./views/base/System_Setting/AddBusinessState'))
+const BusinessState = React.lazy(() => import('./views/base/System_Setting/BusinessState'))
+const GlobalSetup = React.lazy(() => import('./views/base/System_Setting/GlobalSetup'))
+const Tax = React.lazy(() => import('./views/base/System_Setting/Tax'))
+const AddCountryTax = React.lazy(() => import('./views/base/System_Setting/AddCountryTax'))
+
+//***********************************SystemSetting 2 ************///
+const General = React.lazy(() => import('./views/base/System_Setting/General'))
+const CompanyProfileLink= React.lazy(() => import('./views/base/System_Setting/CompanyProfileLink'))
+const SocialLinkConfig= React.lazy(() => import('./views/base/System_Setting/SocialLinkConfig'))
+const MapAndSmsConfig= React.lazy(() => import('./views/base/System_Setting/MapAndSmsConfig'))
+const MailConfig= React.lazy(() => import('./views/base/System_Setting/MailConfig'))
+const PushNotificationConfig= React.lazy(() => import('./views/base/System_Setting/PushNotificationConfig'))
+const PaymentSetting= React.lazy(() => import('./views/base/System_Setting/PaymentSetting'))
+
+//******************************System Reference************************//
+
+const Customer = React.lazy(()=> import('./views/base/SystemReference/Customer'))
+const CreateCustomer = React.lazy(()=> import('./views/base/SystemReference/CreateCustomer'))
+const AffiliatedPartners = React.lazy(()=> import('./views/base/SystemReference/AffiliatedPartners'))
+const CreateAffiliatedPartners = React.lazy(()=> import('./views/base/SystemReference/CreateAffiliatedPartners'))
+const DisputeReasons = React.lazy(()=>import('./views/base/SystemReference/DisputeReasons'))
+const DisputeCategory = React.lazy(()=>import('./views/base/SystemReference/DisputeCategory'))
+const InventoryManagment = React.lazy(()=>import('./views/base/SystemReference/InventoryManagment'))
+const ItemCategory = React.lazy(() => import('./views/base/SystemReference/ItemCategory'))
+const CreateItemCategory = React.lazy(() => import('./views/base/SystemReference/CreateItemCategory'))
+const ItemCatalogue = React.lazy(() => import('./views/base/SystemReference/ItemCatalogue'))
+const CatalogueCategory = React.lazy(() => import('./views/base/SystemReference/CatalogueCategory'))
+const Merchants = React.lazy(() => import('./views/base/SystemReference/Merchants'))
+const CreateMerchants = React.lazy(() => import('./views/base/SystemReference/CreateMerchants'))
+const MerchantCategory = React.lazy(() => import('./views/base/SystemReference/MerchantCategory'))
+const CreateCategory = React.lazy(() => import('./views/base/SystemReference/CreateCategory'))
+const Notification = React.lazy(() => import('./views/base/SystemReference/Notification'))
+const CreateNotification = React.lazy(() => import('./views/base/SystemReference/CreateNotification'))
+const PromoCodes = React.lazy(() => import('./views/base/SystemReference/PromoCodes'))
+const CreatePromoCode = React.lazy(() => import('./views/base/SystemReference/CreatePromoCode'))
+const Subscription_Plans = React.lazy(() => import('./views/base/SystemReference/Subscription_Plans'))
+const CreateSubscriptionCategory= React.lazy(() => import('./views/base/SystemReference/CreateSubscriptionCategory'))
+const Ticket = React.lazy(() => import('./views/base/SystemReference/Ticket'))
+const CreateTicket = React.lazy(() => import('./views/base/SystemReference/CreateTicket'))
+
+//******************System_ROlls****************/
+const AccountManager = React.lazy(()=>import('./views/base/System_Roles/AccountManager'))
+const AffiliatedPartner = React.lazy(()=>import('./views/base/System_Roles/AffiliatedPartner'))
+const DisputeManager = React.lazy(()=>import('./views/base/System_Roles/DisputeManager'))
+const OperationManager = React.lazy(()=>import('./views/base/System_Roles/OperationManager'))
+
+
+
+//**************************E-wallet-Managment********************************/
+
+const Customers = React.lazy(()=> import('./views/base/E-wallet-Managment/Customers'))
+const Affiliated_Partners = React.lazy(()=> import('./views/base/E-wallet-Managment/Affiliated_Partners'))
+const Trader = React.lazy(()=> import('./views/base/E-wallet-Managment/Trader'))
+
+//**************************Order-History********************************/
+const Order = React.lazy(()=> import('./views/base/Order_History/Order'))
+
+//***********************Payout*****************************************/
+
+const Payout = React.lazy(()=>import('./views/base/Payout/Payout'))
+
+//*******************************Reports******************************/
+
+const Client = React.lazy(()=>import('./views/base/Reports/Client'))
+const Tradesman = React.lazy(()=>import('./views/base/Reports/Tradesman'))
+const Subscription_Plan = React.lazy(()=>import('./views/base/Reports/Subscription_Plan'))
+const Inventory = React.lazy(()=>import('./views/base/Reports/Inventory'))
+const Orders = React.lazy(()=>import('./views/base/Reports/Orders'))
+const Affiliated_Partner_Commission = React.lazy(()=>import('./views/base/Reports/Affiliated_Partner_Commission'))
+const Loyalty_Program = React.lazy(()=>import('./views/base/Reports/Loyalty_Program'))
+const Notifications = React.lazy(()=>import('./views/base/Reports/Notifications'))
+const Dispute_Reason = React.lazy(()=>import('./views/base/Reports/Dispute_Reason'))
+const Tickets = React.lazy(()=>import('./views/base/Reports/Tickets'))
+
 // Icons
+
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
 const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
 const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
@@ -47,7 +128,6 @@ const Alerts = React.lazy(() => import('./views/notifications/alerts/Alerts'))
 const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
 const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
-
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
@@ -95,6 +175,80 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+
+  //******************************system_Setting path****************************/
+  { path: '/base/System_Setting/GlobalSetup', name: 'Global Setup', element: GlobalSetup },
+  { path: '/base/System_Setting/BusinessCoun', name: 'Business Country', element: BusinessCountry },
+  { path: '/base/System_Setting/AddBusinessCountry', name: 'Add Business Country', element: AddBusinessCountry },
+  { path: '/base/System_Setting/AddBusinessState', name: 'Add-Business-States', element: AddBusinessState },
+  { path: '/base/System_Setting/AddCountryTax', name: 'Add Country Tax', element: AddCountryTax },
+  { path: '/base/System_Setting/BusinessState', name: 'Business State', element: BusinessState },
+  { path: '/base/System_Setting/Tax', name: 'Tax', element: Tax },
+
+  //************************************SystemSetting******************************/
+  { path: '/base/System_Setting/General', name: 'General', element: General },
+  { path: '/base/System_Setting/CompanyProfileLink', name: 'Company Profile Link', element: CompanyProfileLink },
+  { path: '/base/System_Setting/SocialLinkConfig', name: 'Social Link Config', element: SocialLinkConfig },
+  { path: '/base/System_Setting/MapAndSmsConfig', name: 'Map And Sms Config', element: MapAndSmsConfig },
+  { path: '/base/System_Setting/MailConfig', name: 'Mail Config', element: MailConfig },
+  { path: '/base/System_Setting/PushNotificationConfig', name: 'Push Notification Config', element: PushNotificationConfig },
+  { path: '/base/System_Setting/PaymentSetting', name: 'Payment Setting', element: PaymentSetting },
+
+  // //**********************************/ System_Reference//**************************** */
+  { path:'/base/SystemReference/Customer', name :'Customer', element: Customer },
+  { path:'/base/SystemReference/CreateCustomer', name :'Create Customer', element: CreateCustomer },
+  { path:'/base/SystemReference/AffiliatedPartners', name :'Affiliated Partners', element: AffiliatedPartners },
+  { path:'/base/SystemReference/CreateAffiliatedPartners', name :'Create Affiliated Partners', element: CreateAffiliatedPartners },
+  { path:'/base/SystemReference/DisputeReasons', name : 'Dispute Reasons', element: DisputeReasons},
+  { path:'/base/SystemReference/DisputeCategory', name : 'Create Category', element: DisputeCategory},
+  { path:'/base/SystemReference/InventoryManagment', name : 'Inventory Managment', element : InventoryManagment},
+  { path:'/base/SystemReference/ItemCategory', name: 'Item Category', element: ItemCategory },
+  { path:'/base/SystemReference/CreateItemCategory', name: 'Create Item Category', element: CreateItemCategory },
+  { path:'/base/SystemReference/ItemCatalogue', name: 'Item Catalogue', element: ItemCatalogue },
+  { path:'/base/SystemReference/CatalogueCategory', name: 'Create Category', element: CatalogueCategory },
+  { path:'/base/SystemReference/Merchants', name: 'Merchants', element: Merchants },
+  { path:'/base/SystemReference/CreateMerchants', name: 'Create Merchants', element: CreateMerchants },
+  { path:'/base/SystemReference/MerchantCategory', name: 'Merchant Category', element: MerchantCategory },
+  { path:'/base/SystemReference/CreateCategory', name: 'Create Category ', element: CreateCategory  },
+  { path:'/base/SystemReference/Notification', name: 'Notification', element: Notification },
+  { path:'/base/SystemReference/CreateNotification', name: 'Create Notification', element: CreateNotification },
+  { path:'/base/SystemReference/PromoCodes', name: 'Promo Codes', element: PromoCodes },
+  { path:'/base/SystemReference/CreatePromoCode', name: 'Create Promo Code', element:CreatePromoCode },
+  { path:'/base/SystemReference/Subscription_Plans', name: 'Subscription Plans', element:  Subscription_Plans },
+  { path:'/base/SystemReference/CreateSubscriptionCategory', name: 'Create Category', element:  CreateSubscriptionCategory },
+  { path:'/base/SystemReference/Ticket', name: 'Ticket', element: Ticket },
+  { path:'/base/SystemReference/CreateTicket', name: 'Create Ticket', element: CreateTicket},
+
+  //******************************System_Roless*************************************/
+  { path:'/base/System_Roles/AccountManager', name: 'Account Manager', element:AccountManager},
+  { path:'/base/System_Roles/AffiliatedPartner', name: 'Affiliated Partner', element:AffiliatedPartner},
+  { path:'/base/System_Roles/OperationManager', name: 'Operation Manager', element:OperationManager},
+  { path:'/base/System_Roles/DisputeManager', name: 'Dispute Manager', element:DisputeManager},
+
+//******************************E-wallet_Management*************************/
+  { path:'/base/E-wallet-Managment/Customers', name: 'Customers', element: Customers},
+  { path:'/base/E-wallet-Managment/Affiliated_Partners', name: 'Affiliated Partners', element: Affiliated_Partners},
+  { path:'/base/E-wallet-Managment/Trader', name: 'Trader', element: Trader},
+
+  //******************************Ordere_HIstory**************************/
+
+  { path:'/base/Order_History/Order', name:'Order', element: Order},
+
+  //*****************************PayOut***************************/
+  { path:'/base/Payout/Payout', name:'Payout', element: Payout},
+
+  //*****************************Reports***************************/
+  { path:'/base/Reports/Client', name:'Client', element: Client},
+  { path:'/base/Reports/Tradesman', name:'Marchants', element: Tradesman},
+  { path:'/base/Reports/Subscription_Plan', name:'Subscription Plan', element: Subscription_Plan},
+  { path:'/base/Reports/Inventory', name:'Inventory', element: Inventory},
+  { path:'/base/Reports/Orders', name:'Orders', element: Orders},
+  { path:'/base/Reports/Affiliated_Partner_Commission', name:'Affiliated Partner Commission', element: Affiliated_Partner_Commission},
+  { path:'/base/Reports/Loyalty_Program', name:'Loyalty Program', element: Loyalty_Program},
+  { path:'/base/Reports/Notifications', name:'Notifications', element: Notifications},
+  { path:'/base/Reports/Dispute_Reason', name:'Dispute Reason', element: Dispute_Reason},
+  { path:'/base/Reports/Tickets', name:'Tickets', element: Tickets},
+ 
 ]
 
 export default routes
