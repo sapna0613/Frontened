@@ -1,102 +1,130 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 import {
-  CCard,CCardBody,
+  CCard,
+  CCardBody,
   CCardHeader,
-  CCol,CButton,
-  CRow,CFormInput, CFormSelect,
-} from '@coreui/react'
-import { DocsExample } from 'src/components'
-import { Button } from '@coreui/coreui'
+  CCol,
+  CButton,
+  CRow,
+  CFormInput,
+  CFormSelect,
+} from '@coreui/react';
+import { DocsExample } from 'src/components';
+import { Button } from '@coreui/coreui';
 // import {Link, NavLink} from "react-router-dom";
 
-const AddBusinessState = () => {
-   
-    const inputRef = useRef(null)
-    const [dropdown,setDropDown]=useState(null)
+const General = () => {
+  const inputRef = useRef(null); // Moved declaration and initialized it
 
-    const handleClick = obj=>{
-        setDropDown(obj);
+  const [state, setState] = useState({
+    SiteName: '',
+    SiteIcon: '',
+    FavIcon: '',
+    SiteLogo: '',
+    ContactNumber: '',
+    Email: '',
+    Copyrightcontent:'',
+    DefaultCountry:'',
+    Currency:'',
+    UnitMeasurement:'',
+    LoyaltyPoint:''
+  });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(state);
+
+
+    const dropdown ={
+
+SiteIcon,
+FavIcon,
+SiteLogo,
+ContactNumber,
+Email,
+Copyrightcontent,
+DefaultCountry,
+Currency,
+UnitMeasurement,
+LoyaltyPoint
 
     }
-     
-    return (  
-      <CRow>
-        <CCol xs={12}>
-          <CCard className="mb-12" >
-            <CCardHeader>
-              <strong>General</strong>
-            </CCardHeader>
-            <CCardBody className="mb-12" size="sm">
-            <CRow>
-            <CCol xs={3}>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="SiteName" placeholder="Site Name" />
-            </CCol> 
-            <CCol xs={3}>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="file" id="formFileSm" Label="ImageIcon" placeholder="Imageicon" />
-            </CCol> 
-            <CCol xs={3}>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="file" id="formFileSm" Label="FavIcon" placeholder="FavIcon" />
-            </CCol>
-            
-            <CCol xs={3}>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="file" id="formFileSm" Label="SiteLogo" placeholder="SiteLogo" />
-            </CCol> 
-            </CRow>
-            <CRow> 
-            <CCol xs={4}>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Contact Number" placeholder="Contact Number" />
-            </CCol> 
-            <CCol xs={4}>
-                <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" />
-            </CCol>
-            <CCol xs={4}>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel=" Copyright Content" placeholder="Contact Emai" />
-            </CCol>
-            </CRow>
-            <CRow> 
-           
-            <CCol xs={6} md>
-            <CFormSelect   size='lg'
-            aria-label="Works with selects">
-            <option>Default Countr</option>
-            <option value="1">AUS</option>
-            <option value="2">PHP</option>
-            <option value="3">USDT</option>
-            <option value="4">TRX</option>
-            </CFormSelect>
-            </CCol>
 
-            <CCol xs={6} md>
-            <CFormSelect   size='lg'  aria-label="Large select example">
-            <option>Currency</option>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
-            </CFormSelect>
-            </CCol>
-            </CRow>
-            <CRow>
-            <CCol xs={6}>
-                <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Unit Measurement" placeholder="Unit Measurement" />
-            </CCol>          
-            <CCol xs={6}>
-                <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel=" Loyalty Point" placeholder="Loyalty Point" />
-            </CCol>
-            </CRow>
-            
-            <CRow>
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <CButton color="primary" className="me-md-2" size="lg">Submit</CButton>
-            </div>
-            </CRow>
-                      
-            </CCardBody>
-           
-          </CCard>
-        </CCol>
-      </CRow>
- 
-      
-    )
-  }
+    const res = await fetch('http://localhost:5000/GlobalSetup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dropdown),
+    });
+  };
+
+    return (
+        <CRow>
+          <form onSubmit={handleSubmit}>
+            <CCol xs={12}>
+                <CCard className="mb-12">
+                    <CCardHeader>
+                        <strong>General</strong>
+                    </CCardHeader>
+                    <CCardBody className="mb-12" size="sm">
+                        <CRow>
+                        <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({ SiteName :event.target.value})}/>
+                               </CCol>
+                            <CCol xs={3}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="file" id="formFileSm" label="ImageIcon" placeholder="Imageicon" onChange={(event) => setState({ SiteIcon: event.target.value})} />
+                            </CCol>
+                            <CCol xs={3}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="file" id="formFileSm" label="FavIcon" placeholder="FavIcon" onChange={(event) => setState({ FavIcon: event.target.value})} />
+                            </CCol>
+                            <CCol xs={3}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="file" id="formFileSm" label="SiteLogo" placeholder="SiteLogo" onChange={(event) => setState({ SiteLogo: event.target.value})} />
+                            </CCol>
+                        </CRow>
+                        <CRow>
+                            <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Number" placeholder="Contact Number" onChange={(event) => setState({ ContactNumber: event.target.value})} />
+                            </CCol>
+                            <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({ Email :event.target.value})}/>
+                               </CCol>
+                               <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({
+                                Copyrightcontent  :event.target.value})}/>
+                               </CCol>
+                               <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({
+                               DefaultCountry  :event.target.value})}/>
+                               </CCol>
+                               <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({
+                                Currency  :event.target.value})}/>
+                               </CCol>
+                               <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({
+                               UnitMeasurement  :event.target.value})}/>
+                               </CCol>
+                               <CCol xs={4}>
+                                <CFormInput className="mb-3" size="lg" ref={inputRef} type="text" id="floatingInput" floatingLabel="Contact Email" placeholder="Contact Emai" onChange={(event) => setState({
+                                LoyaltyPoint  :event.target.value})}/>
+                               </CCol>
+                               <CCol xs={3}>
+                  <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
+                </CCol>
+</CRow>
+</CCardBody>
+</CCard>
+</CCol>
+</form>
+</CRow>
+)}               
+
+
+
+                        
   
-export default AddBusinessState
+
+
+
+export default General

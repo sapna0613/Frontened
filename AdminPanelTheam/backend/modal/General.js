@@ -1,21 +1,38 @@
 const mongoose = require('mongoose')
-const BusinessStateSchema = new mongoose.Schema({
-    BusinessState:{
+const GeneralSchema = new mongoose.Schema({
+
+    SiteName :{
         type: String,
-        
     },
-     Country:{
-        type: String,
-        
-       
-    },
-    State:{
-        type: String,
-        
-    },
-    Status:{
-        type :String,
-       
-    },
+SiteIcon:{ 
+    type: String,
+},
+FavIcon: {
+    type: String,
+},
+SiteLogo: {
+    type: String,
+},
+ContactNumber: {
+    type: Number,
+},
+Email: {
+    type: String,
+},
+Copyrightcontent: {
+    type: String,
+},
+DefaultCountry: {
+    type: String,
+},
+Currency: {
+    type: String,
+},
+UnitMeasurement: {
+    type: String,
+},
+LoyaltyPoint: {
+    type: String,
+}
 })
-module.exports = mongoose.model("BusinessState",BusinessStateSchema)
+module.exports = mongoose.model("Globalsetup",GeneralSchema)

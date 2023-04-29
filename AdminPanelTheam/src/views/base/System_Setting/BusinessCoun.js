@@ -40,6 +40,7 @@ const BusinessCoun = () => {
 
   return (
     <CRow>
+       <form onSubmit={handleClick}>
       <CCol xs={12}>
         <CCard className="mb-12">
           <CCardHeader>
@@ -61,6 +62,11 @@ const BusinessCoun = () => {
       <CTableHeaderCell scope="col">Status</CTableHeaderCell>
     </CTableRow>
   </CTableHead>
+  <CFormSelect size='lg' name="Status" aria-label="Large select example">
+                    <option>Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </CFormSelect>
   <CTableBody>
     {data.map((item, index) => (
       <CTableRow key={index}>
@@ -77,6 +83,7 @@ const BusinessCoun = () => {
           </CCardBody>
         </CCard>
       </CCol>
+      </form>
     </CRow>
   );
 };

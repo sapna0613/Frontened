@@ -14,7 +14,7 @@ const AddCountryTax = () => {
   const [dropdown, setDropDown] = useState(null);
 
   const handleClick = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
 
     // const value = inputRef.current.value;
     const country = e.target.elements.country.value;
@@ -26,7 +26,7 @@ const AddCountryTax = () => {
       Country: country,
       State: state,
       Tax: Tax
-    }
+    } 
 
     const res = await fetch('http://localhost:5000/AddCountryTax', {
       method: 'POST',

@@ -1,19 +1,16 @@
-import React, { useRef, useState, } from 'react';
-
-import {_nav} from 'react-router-dom'
+import React, { useRef, useState } from 'react';
 import {
-  
   CCardHeader,
   CCol,
-
   CRow,
   CFormInput,
   CFormSelect,
+  CButton
 } from '@coreui/react';
-
-
+import { useNavigate } from 'react-router-dom';
 
 const CreateAffiliatedPartners = () => {
+  const navigate = useNavigate();
   const [partnerName, setPartnerName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
@@ -21,146 +18,145 @@ const CreateAffiliatedPartners = () => {
   const [coverageState, setCoverageState] = useState('');
   const [commission, setCommission] = useState('');
   const [status, setStatus] = useState('');
-  const [users, setUsers] = useState([]);
-  const fileInputRef = useRef(null);
-
-
-
-  const handleAddUser = async (event) => {
-    event.preventDefault();
-    const newUser = {
-      partnerName,
-      email,
-      mobileNumber,
-      address,
-      coverageState,
-      commission,
-      status,
-    };
   
-      const res = await fetch('http://localhost:5000/CreateAffiliatedPartners', {
-        method: 'POST',
-       headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        ;
-        setPartnerName('');
-        setEmail('');
-        setMobileNumber('');
-        setAddress('');
-        setCoverageState('');
-        setCommission('');
-        setStatus('');
-        setUsers([...users, newUser])
-        // history.push('/affiliates');
-      } else {
-        console.log('Error:', data.message);
-      }
-      
-    
-  };
  
+  const profilePicRef = useRef(null);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('profilePic', profilePicRef.current.files[0]);
+    formData.append('partnerName', partnerName);
+    formData.append('email', email);
+    formData.append('mobileNumber', mobileNumber);
+    formData.append('address', address);
+    formData.append('coverageState', coverageState);
+    formData.append('commission', commission);
+    formData.append('status', status);
+
+    const res = await fetch('http://localhost:5000/CreateAffiliatedPartners', {
+      method: 'POST',
+      body: formData,
+    });
+    
+    const data = await res.json();
+    if (res.ok) {
+      setPartnerName('');
+      setEmail('');
+      setMobileNumber('');
+      setAddress('');
+      setCoverageState('');
+      setCommission('');
+      setStatus('');
+      navigate('/base/SystemReference/AffiliatedPartners');
+
+     
+    } else {
+      console.log('Error:', data.message);
+    }
+  };
+
   return (
     <CRow>
-      
-      
-        <CCardHeader>
-          <strong>Create Customer</strong>
-        </CCardHeader>
-        
-          <form onSubmit={handleAddUser}>
-            <CRow>
-              <CCol xs={3}>
-                 <CFormInput
+      <CCardHeader>
+        <strong>Create Customer</strong>
+      </CCardHeader>
+      <form onSubmit={handleClick}>
+        <CRow>
+        <CFormInput
                   type="file"
                   size="lg"
-                  id="formFileSm"
+                  id="profilePic"
+                  name="profilePic"
                   label="Select Profile Pic"
-                  placeholder="select the image"
-                  ref={fileInputRef}
+                  placeholder="Select Profile Pic"
+                  ref={profilePicRef}
                 />
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol xs={3}>
-                <CFormInput
-                  className="mb-1"
-                  size="lg"
-                  type="text"
-                  id="partnerNameInput"
-                  placeholder="Partner Name"
-                  value={partnerName}
-                  onChange={(e) => setPartnerName(e.target.value)}
-                />
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="partnerNameInput"
+              placeholder="Partner Name"
+              value={partnerName}
+              onChange={(e) => setPartnerName(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="partnerNameInput"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="partnerNameInput"
+              placeholder="mobile Number"
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="partnerNameInput"
+              placeholder=" Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="partnerNameInput"
+              placeholder=" Coverage State"
+              value={coverageState}
+              onChange={(e) => setCoverageState(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="partnerNameInput"
+              placeholder=" Comission"
+              value={commission}
+              onChange={(e) => setCommission(e.target.value)}
+            />
+          </CCol>
+          <CCol xs={3}>
+                  <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
                 </CCol>
-              </CRow>
+        </CRow>
+    </form>
+        </CRow>
 
-            <CRow>
-              <CCol xs={3}>
-                
-                <CFormInput
-                  className="mb-1"
-                  size="lg"
-                  type="email"
-                  id="emailInput"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </CCol>
-              </CRow>
-              
-              <CRow>
-              <CCol xs={3}>
-                <CFormInput
-                  className="mb-1"
-                  size="lg"
-                  type="tel"
-                  id="mobileNumberInput"
-                  placeholder="Mobile Number"
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                />
-              </CCol>
-              </CRow>
-           
-            <CRow>
-              <CCol xs={3}>
-                <CFormInput
-                  className="mb-1"
-                  size="lg"
-                  type="text"
-                  id="addressInput"
-                  placeholder="Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </CCol>
-              </CRow>
-
-              <CRow>
-              <CCol xs={3}>
-                <CFormSelect
-                  size="lg"
-                  id="coverageStateSelect"
-                  value={coverageState}
-                  onChange={(e) => setCoverageState(e.target.value)} >
-                  <option value="text">Coverage State</option>
-                 
-               </CFormSelect>
-               </CCol>
-               </CRow>
-
-               <button type= "submit">Adduser</button>
-           
-               
-              </form>
-                  </CRow>
-                  )
-  }
-  
-export default CreateAffiliatedPartners;
+  )}
+  export default CreateAffiliatedPartners

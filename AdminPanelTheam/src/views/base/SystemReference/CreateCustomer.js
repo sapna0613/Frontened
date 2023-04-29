@@ -1,76 +1,121 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react';
 import {
-  CCard,CCardBody,CCardHeader,
-  CCol,CButton,CRow,CFormInput,
-} from '@coreui/react'
-import { DocsExample } from 'src/components'
-import { Button } from '@coreui/coreui'
- 
-// import {Link, NavLink} from "react-router-dom";
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CButton,
+  CRow,
+  CFormInput,
+} from '@coreui/react';
+import { useNavigate } from 'react-router-dom';
 
-const  CreateCustomer = () => {
-     Const [customer,SetCustomer] = useState(
-    {Name:"", EmailId:"", MobileNumber:""}
-    );
-     let key, value ;
-     const HandleInputs=(e)=>{
-       console.log(e);
-       key=e.target.name ;
-       value=e.target.value;
+const CreateCustomer = () => {
+  
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const mobileRef = useRef(null);
+  const profilePicRef = useRef(null);
 
-      SetCustomer({...customer,[key]:value});
-     }
-    
-     const inputRef = useRef(null)
-    const [dropdown,setDropDown]=useState(null)
+  const handleClick = async (e) => {
+    e.preventDefault();
 
-    const handleClick = obj=>{
-        setDropDown(obj);
+    const Name = nameRef.current.value;
+    const EmailId = emailRef.current.value;
+    const MobileNumber = mobileRef.current.value;
+    const profilePic = profilePicRef.current.files[0];
 
+    const formData = new FormData();
+    formData.append('Name', Name);
+    formData.append('EmailId', EmailId);
+    formData.append('MobileNumber', MobileNumber);
+    formData.append('profilePic', profilePic);
+
+    const dropdown = {
+      name: Name,
+      EmailId: EmailId,
+      MobileNumber: MobileNumber,
+      profilePic: profilePic
     }
+    const res = await fetch('http://localhost:5000/CreateCustomer', {
+      method: 'POST',
+      body: formData,
+      
+    });
 
-    const PostData =async(e)=>{
-           e.preventDefault();
-          const [Name,EmailId,MobileNumber]= customer;
-          const res =  await fetch("/Customer",{
-            method:"POST",
-            
-          })
+    if (res.ok) {
+      navigate('/base/SystemReference/Customer');
+    } else {
+      console.error('Failed to create customer');
     }
-     
-    return (  
-      <form methode="POST">
-      <CRow>
+  };
+
+  return (
+    <CRow>
+      <form onSubmit={handleClick}>
         <CCol xs={12}>
-          <CCard className="mb-12" >
+          <CCard className="mb-12">
             <CCardHeader>
               <strong>Create Customer</strong>
             </CCardHeader>
             <CCardBody className="mb-12" size="sm">
-            <CRow>
-            <CCol xs={3}>
-            <CFormInput type="file" size="lg" id="formFileSm" label="Select Profile Pic" placeholder='select the image'/>
-            </CCol> 
-            <CCol xs={3}>
-            <CFormInput 
-            name='name'
-            value={Customer.name} className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Name" placeholder="Name" />            </CCol>
-            <CCol xs={3}>
-            <CFormInput name='EmailId' value ={Customer.EmailId} className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Email Id" placeholder="Email Id" />            </CCol>
-            <CCol xs={3}>
-            <CFormInput name='MobileNumber' value ={Customer.MobileNumber} className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Mobile Number" placeholder="Mobile Number" />            </CCol>
-            </CRow>
-            <CRow>
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <CButton onclick={PostData} color="primary" className="me-md-2" size="lg">Submit</CButton>
-            </div>
-            </CRow>
+              <CRow>
+                <CFormInput
+                  className="mb-3"
+                  size="lg"
+                  ref={nameRef}
+                  type="text"
+                  id="floatingInput"
+                  name="Name"
+                  floatingLabel="Name"
+                  placeholder="Name "
+                />
+
+                <CFormInput
+                  className="mb-3"
+                  size="lg"
+                  ref={emailRef}
+                  type="text"
+                  id="floatingInput"
+                  name="EmailId"
+                  floatingLabel="EmailId"
+                  placeholder="Email "
+                />
+
+                <CFormInput
+                  className="mb-3"
+                  size="lg"
+                  ref={mobileRef}
+                  type="text"
+                  id="floatingInput"
+                  name="MobileNumber"
+                  floatingLabel="Mobile Number"
+                  placeholder="Mobile Number "
+                />
+
+                <CFormInput
+                  type="file"
+                  size="lg"
+                  id="profilePic"
+                  name="profilePic"
+                  label="Select Profile Pic"
+                  placeholder="Select Profile Pic"
+                  ref={profilePicRef}
+                />
+
+
+
+                <CCol xs={3}>
+                  <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
+                </CCol>
+              </CRow>
             </CCardBody>
-            </CCard>
-            </CCol>
-            </CRow>
-            </form>
-    );
-  }
-  
+          </CCard>
+        </CCol>
+      </form>
+    
+    </CRow>
+  )
+}
+
 export default CreateCustomer

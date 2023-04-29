@@ -2,14 +2,16 @@ const mongoose = require('mongoose')
 
 const affilSchema = new mongoose.Schema
 ({
-    partnerName: { type:String, required:true },
-    email: { type:String, required:true },
-    mobileNumber: { type:String, required:true },
-    address: { type:String, required:true, unique:true },
+    partnerName: { type:String,  },
+    email: { type:String, },
+    mobileNumber: { type:String,  },
+    address: { type:String,  },
     coverageState: { type:String,  }, // s3 link
-    // commission: { type:String,  unique:false }, 
-    status: { type:String,   },
- 
+    commission: { type:String,  unique:false }, 
+  
+   profilePic:{
+    type:String
+   }
 }  , {timestamps :true})
 
 
