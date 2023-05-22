@@ -1627,6 +1627,429 @@ router.put('/DisputeCategory/:id', async (req, res) => {
   }
 });
 
+//////////////////SystemRolls
+
+const  AffileSysRoleSchema= require('../modal/AffilSysRole');
+
+router.post('/CreateAffiliatedPartner', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await AffileSysRoleSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get Susteme rolls affiliated
+router.get('/CreateAffiliatedPartner', async (req, res) => {
+  try {
+       console.log("hello")
+   
+// console.log(newBusinessState)
+    const savedDropdwn = await AffileSysRoleSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id 
+
+router.get('/CreateAffiliatedPartner/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await AffileSysRoleSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put Sys Ref
+
+router.put('/CreateAffiliatedPartner/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await AffileSysRoleSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await AffileSysRoleSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete
+
+
+router.delete('/CreateAffiliatedPartner/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await AffileSysRoleSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//////////////Account Manager
+
+const  AccountManagerSchema= require('../modal/AccountManager');
+
+router.post('/CreateAccountManager', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await AccountManagerSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get System rolls account
+
+router.get('/CreateAccountManager', async (req, res) => {
+  try {
+       console.log("hello")
+   
+// console.log(newBusinessState)
+    const savedDropdwn = await AccountManagerSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id account manager
+
+router.get('/CreateAccountManager/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await AccountManagerSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put account manager
+
+router.put('/CreateAccountManager/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await AccountManagerSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await AccountManagerSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete account manager
+
+
+router.delete('/CreateAccountManager/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await AccountManagerSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+////////////Post Dispute Manager
+
+
+const  DisputeManagerSchema= require('../modal/DisputeManager');
+
+router.post('/CreateDisputeManager', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await DisputeManagerSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get dispute
+
+router.get('/CreateDisputeManager', async (req, res) => {
+  try {
+       console.log("hello")
+   
+
+    const savedDropdwn = await DisputeManagerSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id Dispute
+
+router.get('/CreateDisputeManager/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await DisputeManagerSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put Dispute
+
+router.put('/CreateDisputeManager/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await DisputeManagerSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await DisputeManagerSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete Dispute
+
+
+router.delete('/CreateDisputeManager/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await DisputeManagerSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+////////////Post Operation Manager
+
+const  CreateOperationManagerSchema= require('../modal/OperationManager');
+
+router.post('/CreateOperationManager', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await CreateOperationManagerSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get dispute
+
+router.get('/CreateOperationManager', async (req, res) => {
+  try {
+       console.log("hello")
+   
+
+    const savedDropdwn = await CreateOperationManagerSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id Dispute
+
+router.get('/CreateOperationManager/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await CreateOperationManagerSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put Dispute
+
+router.put('/CreateOperationManager/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await CreateOperationManagerSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await CreateOperationManagerSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete Dispute
+
+
+router.delete('/CreateOperationManager/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await CreateOperationManagerSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 module.exports = router;
 

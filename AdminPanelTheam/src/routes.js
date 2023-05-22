@@ -1,5 +1,6 @@
 import { element } from 'prop-types';
 import React from 'react';
+import UpdateDisputeManager from './views/base/System_Roles/UpdateDisputeManager';
 
 
 
@@ -93,12 +94,17 @@ const Ticket = React.lazy(() => import('./views/base/SystemReference/Ticket'))
 const CreateTicket = React.lazy(() => import('./views/base/SystemReference/CreateTicket'))
 
 //******************System_ROlls****************/
+const UpdateAccountManager = React.lazy(()=>import('./views/base/System_Roles/UpdateAccountManager'))
+const UpdateAffil  = React.lazy(()=>import('./views/base/System_Roles/UpdateAffil'))
 const AccountManager = React.lazy(()=>import('./views/base/System_Roles/AccountManager'))
 const AffiliatedPartner = React.lazy(()=>import('./views/base/System_Roles/AffiliatedPartner'))
 const DisputeManager = React.lazy(()=>import('./views/base/System_Roles/DisputeManager'))
 const OperationManager = React.lazy(()=>import('./views/base/System_Roles/OperationManager'))
-
-
+const CreateAffiliatedPartner  = React.lazy(()=> import('./views/base/System_Roles/CreateAffiliatedPartner'))
+const CreateOperationManager  = React.lazy(()=> import('./views/base/System_Roles/CreateOperationManager'))
+const CreateAccountManager  = React.lazy(()=> import('./views/base/System_Roles/CreateAccountManager'))
+const CreateDisputeManager  = React.lazy(()=> import('./views/base/System_Roles/CreateDisputeManager'))
+const UpdateOperationManager  = React.lazy(()=> import('./views/base/System_Roles/UpdateOperationManager'))
 
 //**************************E-wallet-Managment********************************/
 
@@ -237,10 +243,18 @@ const routes = [
   { path:'/base/SystemReference/CreateTicket', name: 'Create Ticket', element: CreateTicket},
 
   //******************************System_Roless*************************************/
+  { path:'/base/System_Roles/CreateOperationManager', name: 'Account Manager', element:CreateOperationManager},
+  { path:'/base/System_Roles/CreateDisputeManager', name: 'Account Manager', element:CreateDisputeManager}, 
+  { path:'/base/System_Roles/CreateAccountManager', name: 'Account Manager', element:CreateAccountManager},
   { path:'/base/System_Roles/AccountManager', name: 'Account Manager', element:AccountManager},
   { path:'/base/System_Roles/AffiliatedPartner', name: 'Affiliated Partner', element:AffiliatedPartner},
+  { path:'/base/System_Roles/CreateAffiliatedPartner', name: 'Affiliated Partner', element:CreateAffiliatedPartner},
   { path:'/base/System_Roles/OperationManager', name: 'Operation Manager', element:OperationManager},
   { path:'/base/System_Roles/DisputeManager', name: 'Dispute Manager', element:DisputeManager},
+  {path:'/base/System_Roles/UpdateAffil/:id', name:'Update' ,element : UpdateAffil},
+  {path:'/base/System_Roles/UpdateAccountManager/:id', name:'Update' ,element : UpdateAccountManager},
+  {path:'/base/System_Roles/UpdateDisputeManager/:id', name:'Update' ,element : UpdateDisputeManager},
+  {path:'/base/System_Roles/UpdateOperationManager/:id', name:'Update' ,element : UpdateOperationManager},
 
 //******************************E-wallet_Management*************************/
   { path:'/base/E-wallet-Managment/Customers', name: 'Customers', element: Customers},
