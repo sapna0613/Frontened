@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CButton,CImage,CCard,
   CCardBody,CCardHeader,
@@ -12,7 +12,49 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Subscription_Plans = () => {
-    const navigate = useNavigate() ;
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/CreateSubscriptionCategory')
+      .then((result) => {
+        result.json().then((resp) => {
+          // console.log("result",resp)
+          setData(resp);
+        });
+      });
+  }, []);
+
+  console.log(data);
+
+  const navigate = useNavigate();
+
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+
+    if (confirmDelete) {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/CreateSubscriptionCategory/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (response.ok) {
+          setData((prevData) => prevData.filter((item) => item._id !== id));
+        } else {
+          console.log("Failed to delete item");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+    
   return (
     <CRow>
       <CCol xs={12}>
@@ -40,31 +82,61 @@ const Subscription_Plans = () => {
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            <CTableRow>
-              <CTableHeaderCell scope="row">1</CTableHeaderCell>
-              <CTableDataCell>USA </CTableDataCell>
-              <CTableDataCell>Platinum</CTableDataCell>
-              <CTableDataCell>10%</CTableDataCell>
-              <CTableDataCell>Right Port</CTableDataCell>
-              <CTableDataCell>Edit</CTableDataCell>
-            </CTableRow>
-            <CTableRow>
-              <CTableHeaderCell scope="row">1</CTableHeaderCell>
-              <CTableDataCell>USA </CTableDataCell>
-              <CTableDataCell>Platinum</CTableDataCell>
-              <CTableDataCell>10%</CTableDataCell>
-              <CTableDataCell>Right Port</CTableDataCell>
-              <CTableDataCell>Edit</CTableDataCell>
-            </CTableRow>
-            <CTableRow>
-            <CTableHeaderCell scope="row">1</CTableHeaderCell>
-            <CTableDataCell>USA </CTableDataCell>
-            <CTableDataCell>Platinum</CTableDataCell>
-            <CTableDataCell>10%</CTableDataCell>
-            <CTableDataCell>Right Port</CTableDataCell>
-            <CTableDataCell>Edit</CTableDataCell>
-          </CTableRow>
-          </CTableBody>
+    {data.map((item, index) => (
+      <CTableRow key={index}>
+        <CTableDataCell>{index + 1}</CTableDataCell>
+        <CTableDataCell>{item.country}</CTableDataCell>
+        <CTableDataCell>{item.subscriptionPlan}</CTableDataCell>
+        <CTableDataCell>{item.commission}</CTableDataCell>
+        <CTableDataCell>
+  {item.status}
+  <select
+                    className="form-control"
+                    value={item.status}
+                    onChange={(e) => {
+                      const updatedData = data.map((d) => {
+                        if (d._id === item._id) {
+                          return { ...d, status: e.target.value };
+                        }
+                        return d;
+                      });
+                      setData(updatedData);
+                    }}
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+</CTableDataCell>
+<CTableDataCell>
+                  <CButton
+                    onClick={() => handleDelete(item._id)}
+                    color="danger"
+                  >
+                    Delete
+                  </CButton>
+                </CTableDataCell>
+                <CTableDataCell>
+          
+          
+            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+              <CButton
+                onClick={() =>
+                  navigate("/base/SystemReference/UpdateSubsPlan/"+item._id)
+                }
+                color="primary"
+                className="me-md-2"
+              >
+                Edit
+              </CButton>
+              
+            </div>
+
+                
+                </CTableDataCell>
+        
+      </CTableRow>
+    ))}
+    </CTableBody>
         </CTable>
           </CCardBody>
         </CCard>

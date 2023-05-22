@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   CButton,CCard,CCardBody,CCardHeader,
   CCol,CRow,CTable,CTableRow,
   CTableHead,CTableHeaderCell,
   CTableBody,CTableDataCell,CImage,
 } from '@coreui/react';
-import { DocsExample } from 'src/components';
-import { Button } from '@coreui/coreui';
+
 import { useNavigate } from 'react-router-dom';
 import CreateNotification from './CreateNotification';
 
 const Notification=()=> {
     const navigate = useNavigate() ;
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+      fetch("http://localhost:5000/CreateNotification").then((result) => {
+        result.json().then((resp) => {
+          setData(resp);
+        });
+      });
+    }, []);
+  
+    console.log(data);
   return (
     <CRow>
       <CCol xs={12}>
@@ -31,38 +41,33 @@ const Notification=()=> {
           <CTableHead>
             <CTableRow>
               <CTableHeaderCell scope="col">SR NO.</CTableHeaderCell>
+              <CTableHeaderCell scope="col">image</CTableHeaderCell>
               <CTableHeaderCell scope="col">Title</CTableHeaderCell>
               <CTableHeaderCell scope="col">Description</CTableHeaderCell>
-              <CTableHeaderCell scope="col">image</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            <CTableRow>
-              <CTableHeaderCell scope="row">1</CTableHeaderCell>
-              <CTableDataCell>Thomas</CTableDataCell>
-              <CTableDataCell>Good</CTableDataCell>
-              <CTableDataCell>
-              <CImage rounded fluid src="https://th.bing.com/th?q=Black+Man+Profile&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247" width={50} height={50} />
-              </CTableDataCell>
+                {data.map((item, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{index + 1}</CTableDataCell>
+                    <CTableDataCell><CImage rounded fluid src={item.profilePic} width={50} height={50} /></CTableDataCell>
+                    <CTableDataCell>{item.Title}</CTableDataCell>
+                    <CTableDataCell>{item.Description}</CTableDataCell>
               
-            </CTableRow>
+        
+
+                  </CTableRow>
+                ))}
+               </CTableBody>
+         
+          <CTableBody>
             <CTableRow>
-            <CTableHeaderCell scope="row">1</CTableHeaderCell>
-            <CTableDataCell>B</CTableDataCell>
-            <CTableDataCell>pic</CTableDataCell>
-            <CTableDataCell>
-            <CImage rounded fluid src="https://th.bing.com/th?q=Black+Man+Profile&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247" width={50} height={50} />
-            </CTableDataCell>
+              
+             
             
-          </CTableRow>
-          <CTableRow>
-          <CTableHeaderCell scope="row">1</CTableHeaderCell>
-          <CTableDataCell>C</CTableDataCell>
-          <CTableDataCell>pic</CTableDataCell>
-          <CTableDataCell>
-          <CImage rounded fluid src="https://th.bing.com/th?q=Black+Man+Profile&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247" width={50} height={50} />
-          </CTableDataCell>
-        </CTableRow>
+            </CTableRow>
+           
+          
           </CTableBody>
         </CTable>
           </CCardBody>

@@ -7,53 +7,107 @@ import {
 
 import { DocsExample } from 'src/components';
 import { Button } from '@coreui/coreui';
-
-const CreateCategory = () => {
+import './App.css'
+import { useNavigate } from 'react-router-dom';
+const CreateItemCategory = () => {
    
-    const inputRef = useRef(null)
-    const [dropdown,setDropDown]=useState(null)
+  const navigate = useNavigate();
+  const [CategoryName, SetCategoryName] = useState('');
 
-    const handleClick = obj=>{
-        setDropDown(obj);
+  const [Status,SetStatus ] = useState('Status');
 
+
+  const profilePicRef = useRef(null);
+
+  const handleClick = async(e)=>{
+        e.preventDefault()
+
+         const formData = new FormData();
+        formData.append('profilePic', profilePicRef.current.files[0]);
+        formData.append('CategoryName', CategoryName);
+        
+        formData.append('Status', Status);
+
+        const res = await fetch('http://localhost:5000/CreateCategory', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          SetCategoryName('');
+         
+          SetStatus('')
+      navigate('/base/SystemReference/MerchantCategory');
+        } 
+       
+        else {
+            console.log('Error:', data.message);
+          }
     }
      
     return (  
       <CRow>
-        <CCol xs={12}>
-          <CCard className="mb-12" >
-            <CCardHeader>   
-              <strong>Create Category</strong>
-            </CCardHeader>
-            <CCardBody className="mb-12" size="sm">
-            <CRow>
-            <CCol xs={3}>
-            <CFormInput type="file" size="lg" id="formFileSm" label="Category Icon" placeholder='select the image'/>
-            </CCol> 
-            <CCol xs={3}>
-            <CFormInput className="mb-1"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Catagory Name" placeholder="Company Name" />            </CCol>
-            <CCol xs={3}>
-            <CFormInput className="mb-1"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Trade Name" placeholder="Trade Name" />            </CCol>
-            <CCol xs={3}>
-            <CFormSelect   size='lg' aria-label="Works with selects">
-            <option>Status</option>
-            <option value="1">A</option>
-            <option value="2">P</option>
-            </CFormSelect>
-            </CCol>
-            </CRow>
 
+        
+<CCardHeader>
+        <strong>Create Category</strong>
+      </CCardHeader>
+    
+            <form className="form-container" onSubmit={handleClick}>
             <CRow>
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        <CFormInput
+                  type="file"
+                  size="lg"
+                  id="profilePic"
+                  name="profilePic"
+                  label="Select Profile Pic"
+                  placeholder="Select Profile Pic"
+                  ref={profilePicRef}
+                />
+        </CRow>
+        <div className="form-group">
+    <label htmlFor="CompanyNameInput">Category Name</label>
+    <input
+      className="form-control"
+      type="text"
+      id="CategoryName"
+      placeholder="Company Name"
+      value={CategoryName}
+      onChange={(e) => SetCategoryName(e.target.value)}
+    />
+  </div>
+
+         
+
+  
+<CTableDataCell>
+                  {item.status}
+                  <select
+                    className="form-control"
+                    value={item.status}
+                    onChange={(e) => {
+                      const updatedData = data.map((d) => {
+                        if (d._id === item._id) {
+                          return { ...d, status: e.target.value };
+                        }
+                        return d;
+                      });
+                      setData(updatedData);
+                    }}
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </CTableDataCell>
+  <CCol xs={3}>
+                  <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
+                </CCol>
             
-            <CButton color="primary" className="me-md-2" size="lg">Submit</CButton>
-              </div>
-            </CRow>
-            </CCardBody>
-            </CCard>
-            </CCol>
+           
+       </form>
             </CRow>
     );
   }
   
-export default CreateCategory;
+export default CreateItemCategory;

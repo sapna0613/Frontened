@@ -11,12 +11,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const CreateCustomer = () => {
-  
+  const navigate = useNavigate();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const mobileRef = useRef(null);
   const profilePicRef = useRef(null);
-
   const handleClick = async (e) => {
     e.preventDefault();
 

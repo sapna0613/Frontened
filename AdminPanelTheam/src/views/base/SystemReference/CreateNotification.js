@@ -1,49 +1,106 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 import {
-  CCard,CCardBody,
-  CCardHeader,CCol,CButton,
-  CRow,CFormInput,CFormSelect,
+  CCardHeader,
+  CCol,
+  CRow,
+  CFormInput,
+  CFormSelect,
+  CButton
 } from '@coreui/react';
-import { DocsExample } from 'src/components';
-import { Button } from '@coreui/coreui'
+import { useNavigate } from 'react-router-dom';
+const CreateNotification = () => {
+  const navigate = useNavigate();
+  const [Title, setTitle] = useState('');
+  const [Description, setDescription] = useState('');
 
-const CreateNotification=()=>{
-   
-    const inputRef = useRef(null)
-    const [dropdown,setDropDown]=useState(null)
-
-    const handleClick = obj=>{
-        setDropDown(obj);
-
-    }
-     
-    return (  
-      <CRow>
-        <CCol xs={12}>
-          <CCard className="mb-12" >
-            <CCardHeader>
-              <strong>Create Customer</strong>
-            </CCardHeader>
-            <CCardBody className="mb-12" size="sm">
-            <CRow>
-            <CCol xs={4}>
-            <CFormInput className="mb-3"  size="sm" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Dispute Reason" placeholder="Dispute Reason" />            </CCol>
-            <CCol xs={4} >
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Item Description" />       </CCol>
-            <CCol xs={4} >
-            <CFormInput type="file" id="formFile" label="Default file input example" />
-            </CCol> 
-            </CRow>
-            <CRow>
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <CButton color="primary" className="me-md-2" size="lg">Submit</CButton>
-            </div>
-            </CRow>
-            </CCardBody>
-            </CCard>
-            </CCol>
-            </CRow>
-    );
-  }
   
-export default CreateNotification
+ 
+  const profilePicRef = useRef(null);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('profilePic', profilePicRef.current.files[0]);
+    formData.append('Title', Title);
+    formData.append('Description', Description);
+    
+
+    const res = await fetch('http://localhost:5000/CreateNotification', {
+      method: 'POST',
+      body: formData,
+    });
+    
+    const data = await res.json();
+    if (res.ok) {
+      setTitle('');
+      setDescription('');
+     
+      
+     navigate(' ./base/SystemReference/CreateNotification')
+
+     
+    } else {
+      console.log('Error:', data.message);
+    }
+  };
+
+  return (
+    <CRow>
+      <CCardHeader>
+        <strong>Notification</strong>
+      </CCardHeader>
+      <form onSubmit={handleClick}>
+        <CRow>
+        <CFormInput
+                  type="file"
+                  size="lg"
+                  id="profilePic"
+                  name="profilePic"
+                  label="Select Profile Pic"
+                  placeholder="Select Profile Pic"
+                  ref={profilePicRef}
+                />
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="TitleInput"
+              placeholder="Title"
+              value={Title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol xs={3}>
+            <CFormInput
+              className="mb-1"
+              size="lg"
+              type="text"
+              id="Description"
+              placeholder="Description"
+              value={Description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </CCol>
+        </CRow>
+       
+        
+      
+        <CRow>
+          <CCol xs={3}>
+           
+          </CCol>
+          <CCol xs={3}>
+                  <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
+                </CCol>
+        </CRow>
+    </form>
+        </CRow>
+
+  )}
+  export default CreateNotification

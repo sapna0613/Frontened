@@ -12,12 +12,11 @@ import { DocsExample } from 'src/components';
 import { Button } from '@coreui/coreui';
 import './App.css'
 import { useNavigate } from 'react-router-dom';
-const CreateCategory = () => {
+const CreateDisputeReason = () => {
    
   const navigate = useNavigate();
-  
-  const [MerchantCategory,SetMerchantCategory ] = useState('');
-  const [ItemCategoryName,SetItemCategoryName ] = useState('');
+ 
+  const [DisputeReason,SetDisputeReason ] = useState('');
 const [Status,SetStatus]= useState('')
 
   const handleClick = async(e)=>{
@@ -26,10 +25,10 @@ const [Status,SetStatus]= useState('')
          const formData = new FormData();
         
         
-        formData.append('MerchantCategory', MerchantCategory);
-        formData.append('ItemCategoryName', ItemCategoryName);
+        formData.append('DisputeReason', DisputeReason);
+        formData.append('Status', Status);
 
-        const res = await fetch('http://localhost:5000/CreateItemCategory', {
+        const res = await fetch('http://localhost:5000/CreateDisputeReason', {
           method: 'POST',
           body: formData,
         });
@@ -57,12 +56,12 @@ const [Status,SetStatus]= useState('')
             <form className="form-container" onSubmit={handleClick}>
 
             <div className="form-group">
-    <label htmlFor="StatusInput">MerchantCategory </label>
+    <label htmlFor="StatusInput">Dispute Reason </label>
     <select
       className="form-control"
       id="StatusInput"
-      value={MerchantCategory}
-      onChange={(e) => SetMerchantCategory(e.target.value)}
+      value={DisputeReason}
+      onChange={(e) => SetDisputeReason(e.target.value)}
     >
       <option value="">Merchant Category</option>
       <option value="Active">0</option>
@@ -70,17 +69,7 @@ const [Status,SetStatus]= useState('')
     </select>
   </div>
 
-          <div className="form-group">
-    <label htmlFor="TradeNameInput">ItemCategory </label>
-    <input
-      className="form-control"
-      type="text"
-      id="ItemCategoryName"
-      placeholder="ItemCategoryName"
-      value={ItemCategoryName}
-      onChange={(e) => SetItemCategoryName(e.target.value)}
-    />
-  </div>
+       
 
 
 
@@ -108,4 +97,4 @@ const [Status,SetStatus]= useState('')
     );
   }
   
-export default CreateCategory;
+export default CreateDisputeReason;

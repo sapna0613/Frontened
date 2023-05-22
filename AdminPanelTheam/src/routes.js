@@ -1,3 +1,4 @@
+import { element } from 'prop-types';
 import React from 'react';
 
 
@@ -63,6 +64,14 @@ const Customer = React.lazy(()=> import('./views/base/SystemReference/Customer')
 const CreateCustomer = React.lazy(()=> import('./views/base/SystemReference/CreateCustomer'))
 const AffiliatedPartners = React.lazy(()=> import('./views/base/SystemReference/AffiliatedPartners'))
 const CreateAffiliatedPartners = React.lazy(()=> import('./views/base/SystemReference/CreateAffiliatedPartners'))
+const Updatepartners  = React.lazy(()=>import('./views/base/SystemReference/Updatepartners'))
+const UpdatePromoCode  = React.lazy(()=>import('./views/base/SystemReference/UpdatePromoCode'))
+const UpdateItemCategory  = React.lazy(()=>import('./views/base/SystemReference/UpdateItemCategory'))
+const UpdateCustomer  = React.lazy(()=>import('./views/base/SystemReference/UpdateCustomer'))
+const UpdateMerchants  = React.lazy(()=>import('./views/base/SystemReference/UpdateMerchants'))
+const UpdateCreateCategory  = React.lazy(()=>import('./views/base/SystemReference/UpdateCreateCategory'))
+const UpdateItemCatalogue  = React.lazy(()=>import('./views/base/SystemReference/UpdateItemCatalogue'))
+const UpdateSubsPlan  = React.lazy(()=>import('./views/base/SystemReference/UpdateSubsPlan'))
 const DisputeReasons = React.lazy(()=>import('./views/base/SystemReference/DisputeReasons'))
 const DisputeCategory = React.lazy(()=>import('./views/base/SystemReference/DisputeCategory'))
 const InventoryManagment = React.lazy(()=>import('./views/base/SystemReference/InventoryManagment'))
@@ -196,6 +205,14 @@ const routes = [
 
   // //**********************************/ System_Reference//**************************** */
   { path:'/base/SystemReference/Customer', name :'Customer', element: Customer },
+  {path:'/base/SystemReference/Updatepartners/:id', name:'Update' ,element : Updatepartners},
+  {path:'/base/SystemReference/UpdateSubsPlan/:id', name:'Update' ,element : UpdateSubsPlan},
+  {path:'/base/SystemReference/UpdatePromoCode/:id', name:'Update' ,element : UpdatePromoCode},
+  {path:'/base/SystemReference/UpdateItemCategory/:id', name:'Update' ,element : UpdateItemCategory},
+  {path:'/base/SystemReference/UpdateCustomer/:id', name:'Update' ,element : UpdateCustomer},
+  {path:'/base/SystemReference/UpdateMerchants/:id', name:'Update' ,element : UpdateMerchants},
+  {path:'/base/SystemReference/UpdateItemCatalogue/:id', name:'Update' ,element : UpdateItemCatalogue},
+  {path:'/base/SystemReference/UpdateCreateCategory/:id', name:'Update' ,element : UpdateCreateCategory},
   { path:'/base/SystemReference/CreateCustomer', name :'Create Customer', element: CreateCustomer },
   { path:'/base/SystemReference/AffiliatedPartners', name :'Affiliated Partners', element: AffiliatedPartners },
   { path:'/base/SystemReference/CreateAffiliatedPartners', name :'Create Affiliated Partners', element: CreateAffiliatedPartners },

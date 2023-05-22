@@ -95,6 +95,8 @@ const AddBusinessState = () => {
                 <CCol xs={3}>
                   <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
                 </CCol>
+
+                
               </CRow>
             </CCardBody>
           </CCard>

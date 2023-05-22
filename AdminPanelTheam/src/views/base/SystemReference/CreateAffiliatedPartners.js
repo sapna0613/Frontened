@@ -8,7 +8,6 @@ import {
   CButton
 } from '@coreui/react';
 import { useNavigate } from 'react-router-dom';
-
 const CreateAffiliatedPartners = () => {
   const navigate = useNavigate();
   const [partnerName, setPartnerName] = useState('');

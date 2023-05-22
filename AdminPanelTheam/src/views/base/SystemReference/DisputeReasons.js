@@ -9,7 +9,7 @@ import {
 import { DocsExample } from 'src/components';
 import { Button } from '@coreui/coreui';
 import { useNavigate } from 'react-router-dom';
-import DisputeCategory from './DisputeCategory';
+
 
 
 const DisputeReasons=()=> {
@@ -39,24 +39,9 @@ const DisputeReasons=()=> {
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            <CTableRow>
-              <CTableHeaderCell scope="row">1</CTableHeaderCell>
-              <CTableDataCell>Not working</CTableDataCell>
-              <CTableDataCell>Pending</CTableDataCell>
-              <CTableDataCell>Edit</CTableDataCell>
-            </CTableRow>
-            <CTableRow>
-              <CTableHeaderCell scope="row">2</CTableHeaderCell>
-              <CTableDataCell>working</CTableDataCell>
-              <CTableDataCell>successful</CTableDataCell>
-              <CTableDataCell>Edit</CTableDataCell>
-            </CTableRow>
-            <CTableRow>
-            <CTableHeaderCell scope="row">3</CTableHeaderCell>
-            <CTableDataCell>Working</CTableDataCell>
-            <CTableDataCell>Done</CTableDataCell>
-            <CTableDataCell>Edit</CTableDataCell>
-          </CTableRow>
+           
+          
+            
           </CTableBody>
         </CTable>
           </CCardBody>

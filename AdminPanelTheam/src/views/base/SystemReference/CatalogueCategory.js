@@ -6,60 +6,122 @@ import {
 } from '@coreui/react';
 import { DocsExample } from 'src/components';
 import { Button } from '@coreui/coreui'
+import { useNavigate } from 'react-router-dom';
 
 const CatalogueCategory=()=>{
    
-    const inputRef = useRef(null)
-    const [dropdown,setDropDown]=useState(null)
+  const navigate = useNavigate();
+  const [ItemCategory , SetItemCategory] = useState('');
+  const [ DisputeReason,SetDisputeReason ] = useState('');
+  const [ ItemDescription,SetItemDescription ] = useState('');
+  const [Status , setStatus] = useState('');
+  
+  const profilePicRef = useRef(null);
 
-    const handleClick = obj=>{
-        setDropDown(obj);
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('profilePic', profilePicRef.current.files[0]);
+    formData.append('ItemCategory', ItemCategory);
+    formData.append('DisputeReason', DisputeReason);
+    formData.append('ItemDescription', ItemDescription);
+    formData.append('Status', Status);
+
+    const res = await fetch('http://localhost:5000/CatalogueCategory', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      SetItemCategory('');
+      SetDisputeReason('');
+      SetItemDescription('');
+      setStatus('');
+      navigate('/base/SystemReference/ItemCatalogue');
+    } else {
+      console.log('Error:', data.message);
+    }
 
     }
      
-    return (  
+    return (
       <CRow>
-        <CCol xs={12}>
-          <CCard className="mb-12" >
-            <CCardHeader>
-              <strong>Create Customer</strong>
-            </CCardHeader>
-            <CCardBody className="mb-12" size="sm">
-            <CRow>
-            <CCol xs={4}>
-            <CFormSelect size='lg' aria-label="Works with selects">
-            <option>Item Category</option>
-            <option value="1">Active</option>
-            <option value="2">Deative</option>
-            </CFormSelect>
+        <CCardHeader>
+          <strong>Create Catalogue</strong>
+        </CCardHeader>
+        <form onSubmit={handleClick}>
+          <CRow>
+          <CFormInput
+                    type="file"
+                    size="lg"
+                    id="profilePic"
+                    name="profilePic"
+                    label="Select Profile Pic"
+                    placeholder="Select Profile Pic"
+                    ref={profilePicRef}
+                  />
+          </CRow>
+        
+          
+          <CRow>
+            <CCol xs={3}>
+              <CFormInput
+                className="mb-1"
+                size="lg"
+                type="text"
+                id="DisputeReasonInput"
+                placeholder="Dispute Reason"
+                value={DisputeReason}
+                onChange={(e) => SetDisputeReason(e.target.value)}
+              />
             </CCol>
-            <CCol xs={4}>
-            <CFormInput type="file" size="lg" id="formFileSm"  placeholder='select the image'/>
+          </CRow>
+         
+          <CRow>
+            <CCol xs={3}>
+              <CFormInput
+                className="mb-1"
+                size="lg"
+                type="text"
+                id="ItemDescriptionInput"
+                placeholder=" ItemDescription "
+                value={ItemDescription}
+                onChange={(e) => SetItemDescription(e.target.value)}
+              />
             </CCol>
-            <CCol xs={4}>
-            <CFormInput className="mb-3"  size="sm" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Dispute Reason" placeholder="Dispute Reason" />            </CCol>
-            </CRow>
-            <CRow>
-            <CCol xs={6} size='sm={5}'>
-            <CFormInput className="mb-3"  size="lg" ref ={inputRef}type="text" id="floatingInput" floatingLabel="Item Description" />       </CCol>
-            <CCol xs={6} size='lg={15}'>
-            <CFormSelect size='lg' aria-label="Works with selects">
-            <option>Status</option>
-            <option value="1">Active</option>
-            <option value="2">Deative</option>
-            </CFormSelect>
-            </CCol> 
-            </CRow>
-            <CRow>
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <CButton color="primary" className="me-md-2" size="lg">Submit</CButton>
-            </div>
-            </CRow>
-            </CCardBody>
-            </CCard>
-            </CCol>
-            </CRow>
-    );
-  }
+          </CRow>
+          <CRow>
+          <label htmlFor="CountryInput"> ItemCategory</label>
+    <select
+      className="form-control"
+      id="ItemCategory"
+      value={ItemCategory}
+      onChange={(e) => SetItemCategory(e.target.value)}
+    >
+      <option value="">ItemCategory</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+
+    <label htmlFor="CountryInput">Status </label>
+    <select
+      className="form-control"
+      id="CountryInput"
+      value={Status}
+      onChange={(e) => setStatus(e.target.value)}
+    >
+      <option value="">status</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+            <CCol xs={3}>
+                    <CButton color="primary" className="me-md-2" size="lg" type="submit"> Submit </CButton>
+                  </CCol>
+          </CRow>
+      </form>
+          </CRow>
   
-export default CatalogueCategory;
+    )}
+    export default CatalogueCategory
