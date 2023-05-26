@@ -13,6 +13,7 @@ import {
   CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CFormSelect,
 } from '@coreui/react';
 import { DocsExample } from 'src/components';
 import { Button } from '@coreui/coreui';
@@ -24,6 +25,7 @@ import './App.css'
 const BusinessCoun = () => {
   const [data, setData] = useState([]);
 
+  
   useEffect(() => {
     fetch('http://localhost:5000/AddBusinessCountry')
       .then((result) => {
@@ -34,9 +36,14 @@ const BusinessCoun = () => {
       });
   }, []);
 
+  
   console.log(data);
 
   const navigate = useNavigate();
+
+  const handleClick = async (event) => {
+    event.preventDefault();
+    console.log(state);}
 
   return (
     <CRow>

@@ -73,7 +73,8 @@ const AffiliatedPartner=()=> {
             <CTableRow>
               <CTableHeaderCell scope="col">SR NO.</CTableHeaderCell>
               <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Roles</CTableHeaderCell>
+              <CTableHeaderCell scope="col">Email</CTableHeaderCell>
+              <CTableHeaderCell scope="col">Phone</CTableHeaderCell>
               <CTableHeaderCell scope="col">Status(Edit, Delete)</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -83,7 +84,8 @@ const AffiliatedPartner=()=> {
     <CTableDataCell>{index + 1}</CTableDataCell>
   
     <CTableDataCell>{item.Name}</CTableDataCell>
-    <CTableDataCell>{item.Roles}</CTableDataCell>
+    <CTableDataCell>{item.Email}</CTableDataCell>
+    <CTableDataCell>{item.Phone}</CTableDataCell>
     <CTableDataCell>{item.Status}
     <select
     className="form-control"
@@ -116,7 +118,7 @@ const AffiliatedPartner=()=> {
 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
 <CButton
 onClick={() =>
-  navigate("/base/System_Roles/UpdateAffil/"+item._id)
+  navigate("/base/System_Roles/UpdateAccountManager/"+item._id)
 }
 color="primary"
 className="me-md-2"

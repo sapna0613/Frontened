@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
 const AccountManagerSchema = new mongoose.Schema({
-    Name: { type: String, default: '2' },
-    Roles: { type: String },
+    Name: { type: String  },
+    Email:{type: String},
+    Phone:{type: String},
+    Roles: { type: String ,default: '1'},
     Status: { type: String },
 }, { timestamps: true });
 

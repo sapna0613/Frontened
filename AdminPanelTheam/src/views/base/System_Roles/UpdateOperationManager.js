@@ -24,9 +24,10 @@ function UpdateOperationManager() {
   
   function UpdateUser() {
     let item = {
-        Name: data.Name,
-        Roles: data.Roles,
-      Status: data.Status,
+      Name: data.Name,
+      Email: data.Email,
+      Phone: data.Phone,
+      Status:data.Status
      
       
     };
@@ -47,7 +48,7 @@ function UpdateOperationManager() {
   return (
     <div>
               <form>
-<div className="mb-3">
+              <div className="mb-3">
   <label htmlFor="partnerName" className="form-label">
   Name
   </label>
@@ -61,19 +62,32 @@ function UpdateOperationManager() {
   />
 </div>
 <div className="mb-3">
-  <label htmlFor="email" className="form-label">
-  Roles
+  <label htmlFor="Email" className="form-label">
+  Email
   </label>
   <input
-    type="Roles"
+    type="Email"
     className="form-control"
-    id="Roles"
-    name="Roles"
+    id="Email"
+    name="Email"
     value={data.Roles}
     onChange={handleInputChange}
   />
 </div>
 
+<div className="mb-3">
+  <label htmlFor="Email" className="form-label">
+  Phone
+  </label>
+  <input
+    type="Phone"
+    className="form-control"
+    id="Phone"
+    name="Phone"
+    value={data.Phone}
+    onChange={handleInputChange}
+  />
+</div>
 
 
 <div className="mb-3">

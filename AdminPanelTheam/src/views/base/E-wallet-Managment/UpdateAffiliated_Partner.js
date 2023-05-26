@@ -1,13 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
-function Updatepartners() {
+function UpdateAffiliated_Partner() {
   const navigate = useNavigate(); // Invoking useNavigate as a function
   const [data, setData] = useState({});
   const { id } = useParams();
   
   useEffect(() => {
-    fetch(`http://localhost:5000/CreateAffiliatedPartner/${id}`) 
+    fetch(`http://localhost:5000/CreateAffiliated_Partner/${id}`) 
       .then((result) => {
         result.json().then((resp) => {
           setData(resp);
@@ -24,14 +24,13 @@ function Updatepartners() {
   
   function UpdateUser() {
     let item = {
-        Name: data.Name,
-        Email: data.Email,
-        Phone: data.Phone,
-        Status:data.Status
+        CustomerName: data.CustomerName,
+        WalletBalance: data.WalletBalance,
+        Country: data.Country,
      
       
     };
-    fetch(`http://localhost:5000/CreateAffiliatedPartner/${id}`, {
+    fetch(`http://localhost:5000/CreateAffiliated_Partner/${id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -41,7 +40,7 @@ function Updatepartners() {
     });
 
     console.warn();
-    navigate('/base/System_Roles/AffiliatedPartner');
+    navigate('/base/E-wallet-Managment/Affiliated_Partners');
   }
  
 
@@ -49,62 +48,49 @@ function Updatepartners() {
     <div>
               <form>
 <div className="mb-3">
-  <label htmlFor="partnerName" className="form-label">
-  Name
+  <label htmlFor="CustomerName" className="form-label">
+  CustomerName
   </label>
   <input
     type="text"
     className="form-control"
-    id="Name"
-    name="Name"
-    value={data.Name}
+    id="CustomerName"
+    name="CustomerName"
+    value={data.CustomerName}
     onChange={handleInputChange}
   />
 </div>
 <div className="mb-3">
-  <label htmlFor="Email" className="form-label">
-  Email
+  <label htmlFor="WalletBalance" className="form-label">
+  WalletBalance
   </label>
   <input
-    type="Email"
+    type="WalletBalance"
     className="form-control"
-    id="Email"
-    name="Email"
-    value={data.Roles}
+    id="WalletBalance"
+    name="WalletBalance"
+    value={data.WalletBalance}
     onChange={handleInputChange}
   />
 </div>
 
+
 <div className="mb-3">
-  <label htmlFor="Email" className="form-label">
-  Phone
+  <label htmlFor="Country" className="form-label">
+  Country
   </label>
   <input
-    type="Phone"
+    type="Country"
     className="form-control"
-    id="Phone"
-    name="Phone"
-    value={data.Phone}
+    id="Country"
+    name="Country"
+    value={data.Country}
     onChange={handleInputChange}
   />
 </div>
 
 
-<div className="mb-3">
-  <label htmlFor="status" className="form-label">
-    Status
-  </label>
-  <select
-    className="form-control"
-    id="status"
-    name="status"
-    value={data.status}
-    onChange={handleInputChange}
-  >
-    <option value="Active">Active</option>
-    <option value="Inactive">Inactive</option>
-  </select>
-</div>
+
 <div className="d-grid gap-2">
   <button onClick={UpdateUser}>
     Update User
@@ -115,4 +101,4 @@ function Updatepartners() {
   );
 }
 
-export default Updatepartners;
+export default UpdateAffiliated_Partner;

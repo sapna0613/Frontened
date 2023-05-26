@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const GeneralSchema = new mongoose.Schema({
+const GlobalSetupSchema = new mongoose.Schema({
 
     SiteName :{
         type: String,
@@ -36,4 +36,4 @@ LoyaltyPoint: {
     type: String,
 }
 })
-module.exports = mongoose.model("GeneralSetUp",GeneralSchema)
+module.exports = mongoose.model("Globalsetups",GlobalSetupSchema)

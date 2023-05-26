@@ -10,8 +10,9 @@ import { useNavigate } from 'react-router-dom';
 const CreateOperationManager = () => {
   const navigate = useNavigate();
 
-  const [Name, SetName] = useState('4'); // Set the default value of Name to '1'
-  const [Roles, SetRoles] = useState('');
+  const [Name, SetName] = useState('');
+  const [Email, SetEmail] = useState('');
+  const [Phone, SetPhone] = useState(''); 
   const [Status, SetStatus] = useState('');
 
   const handleClick = async (e) => {
@@ -20,7 +21,9 @@ const CreateOperationManager = () => {
     const formData = new FormData();
 
     formData.append('Name', Name);
-    formData.append('Roles', Roles);
+    formData.append('Email', Email);
+    formData.append('Phone', Phone);
+    formData.append('Status', Status);
 
     const res = await fetch('http://localhost:5000/CreateOperationManager', {
       method: 'POST',
@@ -30,7 +33,8 @@ const CreateOperationManager = () => {
     const data = await res.json();
     if (res.ok) {
       SetName('');
-      SetRoles('');
+      SetEmail('');
+      SetPhone('');
       SetStatus('');
       navigate('/base/System_Roles/OperationManager');
     } else {
@@ -44,7 +48,7 @@ const CreateOperationManager = () => {
         <strong>Create</strong>
       </CCardHeader>
       <form className="form-container" onSubmit={handleClick}>
-        <div className="form-group">
+      <div className="form-group">
           <label htmlFor="TradeNameInput">Name </label>
           <input
             className="form-control"
@@ -57,14 +61,26 @@ const CreateOperationManager = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="TradeNameInput">Roles </label>
+          <label htmlFor="TradeNameInput">Email </label>
           <input
             className="form-control"
             type="text"
-            id="Role"
-            placeholder="Roles"
-            value={Roles}
-            onChange={(e) => SetRoles(e.target.value)}
+            id="Email"
+            placeholder="Email"
+            value={Email}
+            onChange={(e) => SetEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="TradeNameInput">Phone </label>
+          <input
+            className="form-control"
+            type="text"
+            id="Phone"
+            placeholder="Phone"
+            value={Phone}
+            onChange={(e) => SetPhone(e.target.value)}
           />
         </div>
 

@@ -5,16 +5,17 @@ import {
   CTableHead,CTableHeaderCell,
   CTableBody,CTableDataCell,CButton
 } from '@coreui/react'
-
+import { DocsExample } from 'src/components'
+import { Button } from '@coreui/coreui'
 import { useNavigate } from 'react-router-dom'
 
 
 
-const AccountManager=()=> {
+const Merchant=()=> {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/CreateAccountManager").then((result) => {
+    fetch("http://localhost:5000/CreateMerchant").then((result) => {
       result.json().then((resp) => {
         setData(resp);
       });
@@ -33,7 +34,7 @@ const AccountManager=()=> {
     if (confirmDelete) {
       try {
         const response = await fetch(
-          `http://localhost:5000/CreateAccountManager/${id}`,
+          `http://localhost:5000/CreateMerchant/${id}`,
           {
             method: "DELETE",
           }
@@ -55,14 +56,14 @@ const AccountManager=()=> {
       <CCol xs={12}>
         <CCard className="mb-12">
           <CCardHeader>
-          <strong>Account</strong>
+          <strong>Merchant</strong>
 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
 <CButton
-  onClick={() => navigate("/base/System_Roles/CreateAccountManager")}
+  onClick={() => navigate("/base/E-wallet-Managment/CreateMerchant")}
   color="primary"
   className="me-md-2"
 >
-CreateAccountManager
+  CreateMerchant
 </CButton>
 </div>
           </CCardHeader>
@@ -71,10 +72,10 @@ CreateAccountManager
           <CTableHead>
             <CTableRow>
               <CTableHeaderCell scope="col">SR NO.</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Email</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Phone</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Status(Edit, Delete)</CTableHeaderCell>
+              <CTableHeaderCell scope="col">CustomerName</CTableHeaderCell>
+              <CTableHeaderCell scope="col">WalletBalance</CTableHeaderCell>
+              <CTableHeaderCell scope="col">Country</CTableHeaderCell>
+              <CTableHeaderCell scope="col">Action(Edit, Delete)</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
@@ -82,27 +83,10 @@ CreateAccountManager
   <CTableRow key={index}>
     <CTableDataCell>{index + 1}</CTableDataCell>
   
-    <CTableDataCell>{item.Name}</CTableDataCell>
-    <CTableDataCell>{item.Email}</CTableDataCell>
-    <CTableDataCell>{item.Phone}</CTableDataCell>
-    <CTableDataCell>{item.Status}
-    <select
-    className="form-control"
-    value={item.status}
-    onChange={(e) => {
-      const updatedData = data.map((d) => {
-        if (d._id === item._id) {
-          return { ...d, status: e.target.value };
-        }
-        return d;
-      });
-      setData(updatedData);
-    }}
-  >
-    <option value="Active">Active</option>
-    <option value="Inactive">Inactive</option>
-  </select>
-</CTableDataCell>
+    <CTableDataCell>{item.CustomerName}</CTableDataCell>
+    <CTableDataCell>{item.WalletBalance}</CTableDataCell>
+    <CTableDataCell>{item.Country}</CTableDataCell>
+  
 <CTableDataCell>
   <CButton
     onClick={() => handleDelete(item._id)}
@@ -117,7 +101,7 @@ CreateAccountManager
 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
 <CButton
 onClick={() =>
-  navigate("/base/System_Roles/UpdateAccountManager/"+item._id)
+  navigate("/base/E-wallet-Managment/UpdateMerchant/"+item._id)
 }
 color="primary"
 className="me-md-2"
@@ -140,6 +124,6 @@ Edit
   );
 }
 
-export default AccountManager
+export default Merchant
 
 

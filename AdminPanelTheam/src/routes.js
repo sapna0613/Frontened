@@ -4,6 +4,9 @@ import UpdateDisputeManager from './views/base/System_Roles/UpdateDisputeManager
 
 
 
+
+
+
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -107,10 +110,15 @@ const CreateDisputeManager  = React.lazy(()=> import('./views/base/System_Roles/
 const UpdateOperationManager  = React.lazy(()=> import('./views/base/System_Roles/UpdateOperationManager'))
 
 //**************************E-wallet-Managment********************************/
-
+const CreateAffiliated_Partner = React.lazy(()=> import('./views/base/E-wallet-Managment/CreateAffiliated_Partner'))
+const CreateCustomers = React.lazy(()=> import('./views/base/E-wallet-Managment/CreateCustomers'))
 const Customers = React.lazy(()=> import('./views/base/E-wallet-Managment/Customers'))
 const Affiliated_Partners = React.lazy(()=> import('./views/base/E-wallet-Managment/Affiliated_Partners'))
-const Trader = React.lazy(()=> import('./views/base/E-wallet-Managment/Trader'))
+const Merchant = React.lazy(()=> import('./views/base/E-wallet-Managment/Merchant'))
+const CreateMerchant = React.lazy(()=> import('./views/base/E-wallet-Managment/CreateMerchant'))
+const UpdateAffiliated_Partner = React.lazy(()=> import('./views/base/E-wallet-Managment/UpdateAffiliated_Partner'))
+const UpdateCustomers = React.lazy(()=> import('./views/base/E-wallet-Managment/UpdateCustomers'))
+const UpdateMerchant = React.lazy(()=> import('./views/base/E-wallet-Managment/UpdateMerchant'))
 
 //**************************Order-History********************************/
 const Order = React.lazy(()=> import('./views/base/Order_History/Order'))
@@ -257,10 +265,15 @@ const routes = [
   {path:'/base/System_Roles/UpdateOperationManager/:id', name:'Update' ,element : UpdateOperationManager},
 
 //******************************E-wallet_Management*************************/
+{path:'/base/E-wallet-Managment/CreateAffiliated_Partner', name:'Affiliated Partners' ,element : CreateAffiliated_Partner},
+{path:'/base/E-wallet-Managment/CreateCustomers', name:'Affiliated Partners' ,element : CreateCustomers},
+{path:'/base/E-wallet-Managment/CreateMerchant', name:'Affiliated Partners' ,element : CreateMerchant},
   { path:'/base/E-wallet-Managment/Customers', name: 'Customers', element: Customers},
   { path:'/base/E-wallet-Managment/Affiliated_Partners', name: 'Affiliated Partners', element: Affiliated_Partners},
-  { path:'/base/E-wallet-Managment/Trader', name: 'Trader', element: Trader},
-
+  { path:'/base/E-wallet-Managment/Merchant', name: 'Merchant', element: Merchant},
+  {path:'/base/E-wallet-Managment/UpdateAffiliated_Partner/:id', name:'Update' ,element : UpdateAffiliated_Partner},
+  {path:'/base/E-wallet-Managment/UpdateCustomers/:id', name:'Update' ,element : UpdateCustomers},
+  {path:'/base/E-wallet-Managment/UpdateMerchant/:id', name:'Update' ,element : UpdateMerchant},
   //******************************Ordere_HIstory**************************/
 
   { path:'/base/Order_History/Order', name:'Order', element: Order},

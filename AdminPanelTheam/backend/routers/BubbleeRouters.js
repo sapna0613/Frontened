@@ -385,39 +385,6 @@ console.log(req.body)
 });
 
 
-
-const GeneralSchema = require('../modal/General');
-
-router.post('/GlobalSetup', async (req, res) => {
-  try {
-    // const { Country, State, Tax } = req.body;
-// console.log(req.body)
-    // const newBusinessState = new BusinessStateSchema({
-    //   BusinessState,
-    //   Country,
-    //   State,
-    //   Tax,
-    // });
-// console.log(newBusinessState)
-    const savedDropdwn = await GeneralSchema.create(req.body);
-    console.log(savedDropdwn);
-
-    res.status(201).json(savedDropdwn);
-  } 
-
-  
-   catch (error) {
-    console.log(error.message)
-    res.status(400).json({ message: error.message });
-  }
-});
-
-
-///post createcustomer
-
-
-
-
 aws.config.update({
   accessKeyId: "AKIARD63KSO4FYHW7VVX",
   secretAccessKey: "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",
@@ -2051,5 +2018,606 @@ router.delete('/CreateOperationManager/:id', async (req, res) => {
   }
 });
 
+
+
+//////////////E WALLET MANAGEMENT
+
+/////POST Wallet 
+
+const  Affiliated_PartnerSchema= require('../modal/Affiliated_Partner');
+
+router.post('/CreateAffiliated_Partner', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await Affiliated_PartnerSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get Affil
+
+router.get('/CreateAffiliated_Partner', async (req, res) => {
+  try {
+       console.log("hello")
+   
+
+    const savedDropdwn = await Affiliated_PartnerSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id Affil
+
+router.get('/CreateAffiliated_Partner/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await Affiliated_PartnerSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put Affil
+
+
+router.put('/CreateAffiliated_Partner/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await Affiliated_PartnerSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await Affiliated_PartnerSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete AFFIL
+
+
+router.delete('/CreateAffiliated_Partner/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await Affiliated_PartnerSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+//////////E-wallet-Management
+
+
+
+const  CustomersSchema= require('../modal/Customers');
+
+router.post('/CreateCustomers', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await CustomersSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get Affil
+
+router.get('/CreateCustomers', async (req, res) => {
+  try {
+       console.log("hello")
+   
+
+    const savedDropdwn = await CustomersSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id Affil
+
+router.get('/CreateCustomers/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await CustomersSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put Affil
+
+
+router.put('/CreateCustomers/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await CustomersSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await CustomersSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete AFFIL
+
+
+router.delete('/CreateCustomers/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await CustomersSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+///////////////////////////E-WALLET-Management
+/////POST MERCHANT
+const  MerchantWSchema= require('../modal/MerchantsEwallet');
+
+router.post('/CreateMerchant', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await MerchantWSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///Get Affil
+
+router.get('/CreateMerchant', async (req, res) => {
+  try {
+       console.log("hello")
+   
+
+    const savedDropdwn = await MerchantWSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Get by id Affil
+
+router.get('/CreateMerchant/:id', async (req, res) => {
+  try {
+    const id = mongoose.Types.ObjectId(req.params.id); 
+    const savedDropdwn = await MerchantWSchema.findById(id);
+    console.log(savedDropdwn);
+
+    res.status(200).json(savedDropdwn);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+//////Put Affil
+
+
+router.put('/CreateMerchant/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+  console.log(id)
+  
+
+  try {
+    const updates = await MerchantSchema.findOne({_id:id});
+    if (!updates) {
+      return res.status(404).json({ error: 'Affiliate not found' });
+    }
+
+    const updateddata = await MerchantSchema.findByIdAndUpdate(id, data, { new: true });
+    if (!updateddata) {
+      return res.status(500).json({ error: 'Failed to update affiliate' });
+    }
+
+    console.log(updateddata);
+    return res.status(200).send({ status: true, message: "Success", data: updateddata });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+////////Delete AFFIL
+
+
+router.delete('/CreateMerchant/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (!isValidId) {
+      return res.status(400).json({ error: 'Invalid id parameter' });
+    }
+    const result = await MerchantWSchema.deleteOne({ _id: id });
+    res.json({ message: 'Affiliated partner deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//////////////////////////System Setting global setup
+
+aws.config.update({
+  accessKeyId: "AKIARD63KSO4FYHW7VVX",
+  secretAccessKey: "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",
+  region: "ap-south-1",
+});
+
+let uplloadFile = async (file) => {
+  return new Promise(function (resolve, reject) {
+    // This function will upload the file to AWS and return the link
+
+    let s3 = new aws.S3({ apiVersion: "2006-03-01" }); // We will be using the S3 service of AWS
+
+    var uploadParams = {
+      Bucket: "bp-profilepicture-upload",
+      Key: "abc/" + file.originalname,
+      Body: file.buffer,
+    };
+
+    s3.upload(uploadParams, function (err, data) {
+      if (err) {
+        return reject({ error: err });
+      }
+      console.log("File uploaded successfully");
+      return resolve(data.Location);
+    });
+  });
+};
+
+const GlobalSetupSchema = require('../modal/GlobalSetup');
+const GlobalSetup = async function(req, res) {
+  try {
+    const data = req.body;
+    const file = req.files[0];
+
+    if (
+      !(
+        file.mimetype === "image/png" ||
+        file.mimetype === "image/jpg" ||
+        file.mimetype === "image/jpeg"
+      )
+    ) {
+      return res.status(400).send({
+        status: false,
+        message: "Only .png, .jpg, and .jpeg formats are allowed!",
+      });
+    }
+
+    let uploadedFileURL = await uplloadFile(file);
+
+    data.SiteIcon = uploadedFileURL;
+    data.FavIcon = uploadedFileURL;
+    data.SiteLogo = uploadedFileURL;
+
+    let globalSetup = await GlobalSetupSchema.create(data);
+    return res.status(201).send({
+      status: true,
+      message: "Success",
+      SiteIcon: uploadedFileURL,
+      FavIcon:uploadedFileURL,
+      SiteLogo:uploadedFileURL,
+
+    });
+  } catch (err) {
+    return res.status(500).send({ status: false, message: err.message });
+  }
+};
+
+router.post('/GlobalSetup', GlobalSetup);
+
+
+///////////////General Setup
+
+aws.config.update({
+  accessKeyId: "AKIARD63KSO4FYHW7VVX",
+  secretAccessKey: "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",
+  region: "ap-south-1",
+});
+
+let upllloadFile = async (file) => {
+  return new Promise(function (resolve, reject) {
+    // This function will upload the file to AWS and return the link
+
+    let s3 = new aws.S3({ apiVersion: "2006-03-01" }); // We will be using the S3 service of AWS
+
+    var uploadParams = {
+      Bucket: "bp-profilepicture-upload",
+      Key: "abc/" + file.originalname,
+      Body: file.buffer,
+    };
+
+    s3.upload(uploadParams, function (err, data) {
+      if (err) {
+        return reject({ error: err });
+      }
+      console.log("File uploaded successfully");
+      return resolve(data.Location);
+    });
+  });
+};
+
+const GeneralSchema = require('../modal/General');
+const General = async function(req, res) {
+  try {
+    const data = req.body;
+    const file = req.files[0];
+
+    if (
+      !(
+        file.mimetype === "image/png" ||
+        file.mimetype === "image/jpg" ||
+        file.mimetype === "image/jpeg"
+      )
+    ) {
+      return res.status(400).send({
+        status: false,
+        message: "Only .png, .jpg, and .jpeg formats are allowed!",
+      });
+    }
+
+    let uploadedFileURL = await upllloadFile(file);
+
+    data.SiteIcon = uploadedFileURL;
+    data.FavIcon = uploadedFileURL;
+    data.SiteLogo = uploadedFileURL;
+
+    let General = await GeneralSchema.create(data);
+    return res.status(201).send({
+      status: true,
+      message: "Success",
+      SiteIcon: uploadedFileURL,
+      FavIcon:uploadedFileURL,
+      SiteLogo:uploadedFileURL,
+
+    });
+  } catch (err) {
+    return res.status(500).send({ status: false, message: err.message });
+  }
+};
+
+router.post('/General', General);
+
+
+////////Comapny profile Link
+
+const  CompanyProfileLinkSchema= require('../modal/CompanyProfileLinks');
+
+router.post('/CompanyProfileLink', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await CompanyProfileLinkSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+///////Social Link
+
+
+const  SocialLinkSchema= require('../modal/SocialLinkConfig');
+
+router.post('/SocialLinkConfig', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await SocialLinkSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+//////MAP AND SMS CONFIG
+const  MapAndSmsConfigSchema= require('../modal/MapAndSmsConfig');
+router.post('/MapAndSmsConfig', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await MapAndSmsConfigSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+///////////Mail config
+
+const  MailConfigSchema= require('../modal/MailConfig');
+router.post('/MailConfig', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await MailConfigSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+/////Push notification
+
+const  PushNotificationConfigSchema= require('../modal/PushNotificationConfig');
+router.post('/PushNotificationConfig', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await PushNotificationConfigSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+/////////payment setting
+
+const  PaymentSettingSchema= require('../modal/PaymentSetting');
+router.post('/PaymentSetting', async (req, res) => {
+  try {
+    const {  } = req.body;
+console.log(req.body)
+   
+    const savedDropdwn = await PaymentSettingSchema.create(req.body);
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
 module.exports = router;
 

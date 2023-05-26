@@ -10,29 +10,31 @@ import { useNavigate } from 'react-router-dom';
 const CreateAffiliatedPartner = () => {
   const navigate = useNavigate();
 
-  const [Name, SetName] = useState('1'); // Set the default value of Name to '1'
-  const [Roles, SetRoles] = useState('');
-  const [Status, SetStatus] = useState('');
+  const [CustomerName, SetCustomerName] = useState(''); // Set the default value of Name to '1'
+  const [WalletBalance, SetWalletBalance] = useState('');
+  const [Country, SetCountry] = useState('');
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
 
-    formData.append('Name', Name);
-    formData.append('Roles', Roles);
+    formData.append('CustomerName', CustomerName);
+    formData.append('WalletBalance', WalletBalance);
+    formData.append('Country', Country);
 
-    const res = await fetch('http://localhost:5000/CreateAffiliatedPartner', {
+    const res = await fetch('http://localhost:5000/CreateAffiliated_Partner', {
       method: 'POST',
       body: formData,
     });
 
     const data = await res.json();
     if (res.ok) {
-      SetName('');
-      SetRoles('');
-      SetStatus('');
-      navigate('/base/System_Roles/AffiliatedPartner');
+        SetCustomerName('');
+        SetWalletBalance('');
+        SetCountry('');
+   
+      navigate('/base/E-wallet-Managment/Affiliated_Partners');
     } else {
       console.log('Error:', data.message);
     }
@@ -45,42 +47,41 @@ const CreateAffiliatedPartner = () => {
       </CCardHeader>
       <form className="form-container" onSubmit={handleClick}>
         <div className="form-group">
-          <label htmlFor="TradeNameInput">Name </label>
+          <label htmlFor="TradeNameInput">Customer Name </label>
           <input
             className="form-control"
             type="text"
-            id="Name"
-            placeholder="Name"
-            value={Name}
-            onChange={(e) => SetName(e.target.value)}
+            id="CustomerName"
+            placeholder="CustomerName"
+            value={CustomerName}
+            onChange={(e) => SetCustomerName(e.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="TradeNameInput">Roles </label>
+          <label htmlFor="TradeNameInput">WalletBalance </label>
           <input
             className="form-control"
             type="text"
-            id="Role"
-            placeholder="Roles"
-            value={Roles}
-            onChange={(e) => SetRoles(e.target.value)}
+            id="WalletBalance"
+            placeholder="WalletBalance"
+            value={WalletBalance}
+            onChange={(e) => SetWalletBalance(e.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="StatusInput">Status </label>
-          <select
+          <label htmlFor="TradeNameInput">Country </label>
+          <input
             className="form-control"
-            id="StatusInput"
-            value={Status}
-            onChange={(e) => SetStatus(e.target.value)}
-          >
-            <option value="">Status</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
+            type="text"
+            id="Country"
+            placeholder="Country"
+            value={Country}
+            onChange={(e) => SetCountry(e.target.value)}
+          />
         </div>
+
         <CCol xs={3}>
           <CButton color="primary" className="me-md-2" size="lg" type="submit">
             Submit

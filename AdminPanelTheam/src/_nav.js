@@ -190,7 +190,7 @@ const nav = [
       {
         component:CNavItem,
         name:'Merchants',
-        to:'/base/E-wallet-Managment/Trader',
+        to:'/base/E-wallet-Managment/Merchant',
         icon:<CIcon icon={cilContact} customClassName="nav-icon" />
       },
       {
