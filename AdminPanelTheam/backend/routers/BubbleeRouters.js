@@ -2491,6 +2491,30 @@ const General = async function(req, res) {
 router.post('/General', General);
 
 
+
+
+//////////////Get general 
+
+router.get('/General', async (req, res) => {
+  try {
+       console.log("hello")
+   
+
+    const savedDropdwn = await GeneralSchema.find();
+    console.log(savedDropdwn);
+
+    res.status(201).json(savedDropdwn);
+  } 
+
+  
+   catch (error) {
+    console.log(error.message)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+
 ////////Comapny profile Link
 
 const  CompanyProfileLinkSchema= require('../modal/CompanyProfileLinks');

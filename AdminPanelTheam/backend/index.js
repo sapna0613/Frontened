@@ -27,13 +27,13 @@ app.use(require('./routers/BubbleeRouters'))
 app.use(express.urlencoded({extended:true}));
 
 
-mongoose.connect("mongodb://localhost:27017/", {
+mongoose.connect("mongodb+srv://user:12345@cluster0.i0bugnt.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true
 })
     .then(() => console.log("MongoDb is connected"))
     .catch(err => console.log(err))
 
-
+//mongodb+srv://user:12345@cluster0.0cthosq.mongodb.net/
   
       
 app.use('/', route);
@@ -42,3 +42,5 @@ app.use('/', route);
 app.listen(  5000, function () {
     console.log('Express app running on port ' + ( 5000))
 });
+
+

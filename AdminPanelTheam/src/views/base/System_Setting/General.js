@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef,useEffect } from 'react';
 import {
   CCard,
   CCardBody,
@@ -24,6 +24,21 @@ const General = () => {
   const Currency = useRef(null);
   const UnitMeasurement = useRef(null);
   const LoyaltyPoint = useRef(null);
+  
+  useEffect(() => {
+    // Fetch the existing data from the server
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:5000/General');
+      const data = await response.json();
+
+      // Populate the form fields with the fetched data
+      SiteName.current.value = data.SiteName;
+      // Set the values for other fields accordingly
+    };
+
+    fetchData();
+  }, []);
+ 
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -66,9 +81,7 @@ const General = () => {
               <CButton onClick={() => navigate('/base/System_Setting/General')} color="primary" className="me-md-2">
                 General
               </CButton>
-              <CButton onClick={() => navigate('/base/System_Setting/HomePage')} color="primary" className="me-md-2">
-                Home Page
-              </CButton>
+              
               <CButton onClick={() => navigate('/base/System_Setting/CompanyProfileLink')} color="primary" className="me-md-2">
                 Company Profile Link.js
               </CButton>
@@ -83,9 +96,6 @@ const General = () => {
               </CButton>
               <CButton onClick={() => navigate('/base/System_Setting/PaymentSetting')} color="primary" className="me-md-2">
                 Payment Setting
-              </CButton>
-              <CButton onClick={() => navigate('/base/System_Setting/PolicyPage')} color="primary" className="me-md-2">
-                Policy Page
               </CButton>
               <CButton onClick={() => navigate('/base/System_Setting/MailConfig')} color="primary" className="me-md-2">
                 Mail Config

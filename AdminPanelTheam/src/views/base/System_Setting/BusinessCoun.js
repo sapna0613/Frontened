@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import {
   CButton,
   CCard,
@@ -15,39 +14,45 @@ import {
   CTableDataCell,
   CFormSelect,
 } from '@coreui/react';
-import { DocsExample } from 'src/components';
-import { Button } from '@coreui/coreui';
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react';
 import { useNavigate } from 'react-router-dom';
 import SystemSetting from './SystemSetting';
-import './App.css'
+import './App.css';
 
 const BusinessCoun = () => {
   const [data, setData] = useState([]);
 
-  
   useEffect(() => {
     fetch('http://localhost:5000/AddBusinessCountry')
       .then((result) => {
         result.json().then((resp) => {
-          // console.log("result",resp)
           setData(resp);
         });
       });
   }, []);
 
-  
-  console.log(data);
-
   const navigate = useNavigate();
 
-  const handleClick = async (event) => {
-    event.preventDefault();
-    console.log(state);}
+  const updateStatus = (index, value) => {
+    const updatedData = [...data];
+    updatedData[index].Status = value;
+    setData(updatedData);
+    localStorage.setItem(`selectedStatus${index}`, value); // Store the selected status in localStorage
+  };
+
+  useEffect(() => {
+    // Retrieve the selected status from localStorage when the component mounts
+    const updatedData = [...data];
+    updatedData.forEach((item, index) => {
+      const selectedStatus = localStorage.getItem(`selectedStatus${index}`);
+      if (selectedStatus) {
+        updatedData[index].Status = selectedStatus;
+      }
+    });
+    setData(updatedData);
+  }, []);
 
   return (
     <CRow>
-       <form onSubmit={handleClick}>
       <CCol xs={12}>
         <CCard className="mb-12">
           <CCardHeader>
@@ -59,38 +64,42 @@ const BusinessCoun = () => {
             </div>
           </CCardHeader>
           <CCardBody>
-          <CTable className='custom-table'>
-  <CTableHead>
-    <CTableRow>
-      <CTableHeaderCell scope="col">SR NO.</CTableHeaderCell>
-      <CTableHeaderCell scope="col">Country Name</CTableHeaderCell>
-      <CTableHeaderCell scope="col">Currency</CTableHeaderCell>
-      <CTableHeaderCell scope="col">Currency Symbol</CTableHeaderCell>
-      <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-    </CTableRow>
-  </CTableHead>
-  <CFormSelect size='lg' name="Status" aria-label="Large select example">
-                    <option>Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                  </CFormSelect>
-  <CTableBody>
-    {data.map((item, index) => (
-      <CTableRow key={index}>
-        <CTableDataCell>{index + 1}</CTableDataCell>
-        <CTableDataCell>{item.CountryName}</CTableDataCell>
-        <CTableDataCell>{item.Currency}</CTableDataCell>
-        <CTableDataCell>{item.CurrencySymbol}</CTableDataCell>
-        <CTableDataCell>{item.Status}</CTableDataCell>
-      </CTableRow>
-    ))}
-  </CTableBody>
-</CTable>
-
+            <CTable className='custom-table'>
+              <CTableHead>
+                <CTableRow>
+                  <CTableHeaderCell scope="col">SR NO.</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Country Name</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Currency</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Currency Symbol</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Status</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {data.map((item, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{index + 1}</CTableDataCell>
+                    <CTableDataCell>{item.CountryName}</CTableDataCell>
+                    <CTableDataCell>{item.Currency}</CTableDataCell>
+                    <CTableDataCell>{item.CurrencySymbol}</CTableDataCell>
+                    <CTableDataCell>
+                      <CFormSelect
+                        size='lg'
+                        value={item.Status}
+                        onChange={(e) => updateStatus(index, e.target.value)}
+                        name="Status"
+                        aria-label="Large select example"
+                      >
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </CFormSelect>
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
           </CCardBody>
         </CCard>
       </CCol>
-      </form>
     </CRow>
   );
 };
