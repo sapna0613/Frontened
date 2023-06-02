@@ -1,8 +1,8 @@
-require('dotenv/config')
 const express = require('express');
 const bodyParser = require('body-parser');
 const route = require("./routers/BubbleeRouters");
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', false); 
 const app = express();
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3001");
@@ -16,7 +16,8 @@ const cors = require('cors');
 app.use(multer().any())
 app.use(cors())
 
-
+const dotenv = require("dotenv")
+dotenv.config()
 
 
 
@@ -27,11 +28,14 @@ app.use(require('./routers/BubbleeRouters'))
 app.use(express.urlencoded({extended:true}));
 
 
-mongoose.connect("mongodb+srv://user:12345@cluster0.i0bugnt.mongodb.net/test?retryWrites=true&w=majority", {
-    useNewUrlParser: true
-})
-    .then(() => console.log("MongoDb is connected"))
-    .catch(err => console.log(err))
+mongoose.connect( process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('MongoDB connected successfully');
+    // Rest of your code
+  })
+  .catch(error => {
+    console.error('MongoDB connection error:', error);
+  });
 
 //mongodb+srv://user:12345@cluster0.0cthosq.mongodb.net/
   
@@ -39,7 +43,7 @@ mongoose.connect("mongodb+srv://user:12345@cluster0.i0bugnt.mongodb.net/test?ret
 app.use('/', route);
 
 
-app.listen(  5000, function () {
+app.listen(  process.env.PORT || 5000, function () {
     console.log('Express app running on port ' + ( 5000))
 });
 
