@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    "baseUrl": "."
-  },
-  "include": ["src", "backend/Server.js", "backend/index.js"]
-}
