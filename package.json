@@ -80,6 +80,9 @@
     "rules": {
       "no-unused-vars": "warn"
     },
+    “jest”: {
+    “verbose”: true
+  }
     "overrides": [
       {
         "files": [
