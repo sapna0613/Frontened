@@ -82,7 +82,7 @@
     },
     “jest”: {
     “verbose”: true
-  }
+  },
     "overrides": [
       {
         "files": [
